@@ -4,7 +4,7 @@
   let saved = [];
   try {
     const value = JSON.parse(localStorage.getItem(storageKey) || '[]');
-    if (Array.isArray(value)) saved = [...new Set(value.filter(id => /^[1-6]$/.test(String(id))).map(String))];
+    if (Array.isArray(value)) saved = [...new Set(value.filter(id => /^[1-9][0-9]{0,9}$/.test(String(id))).map(String))];
   } catch { /* Storage may be blocked; the current session remains interactive. */ }
   let toastTimer;
   const toast = document.getElementById('feedback-toast');
@@ -22,7 +22,7 @@
   let category = 'all';
   let onlySaved = false;
   function filterServices() {
-    if (!cards.length) return;
+    if (!document.getElementById('service-grid')) return;
     const query = (search?.value || '').trim().toLocaleLowerCase();
     let count = 0;
     cards.forEach(card => {
@@ -31,7 +31,7 @@
       card.hidden = !visible;
       if (visible) count++;
     });
-    document.getElementById('result-count').textContent = count === cards.length && !query && category === 'all' && !onlySaved ? 'Showing all 6 services' : `${count} ${count === 1 ? 'service' : 'services'} found`;
+    document.getElementById('result-count').textContent = count === cards.length && !query && category === 'all' && !onlySaved ? `Showing all ${cards.length} services` : `${count} ${count === 1 ? 'service' : 'services'} found`;
     document.getElementById('empty-state').hidden = count !== 0;
   }
   function syncSavedButtons() {
@@ -59,7 +59,12 @@
       notify(`${button.dataset.serviceName} ${removing ? 'removed from' : 'added to'} your saved services.`);
     });
   });
-  syncSavedButtons();
+  if (document.getElementById('service-grid')) {
+    const available = new Set(cards.map(card => card.querySelector('[data-save-service]').dataset.saveService));
+    saved = saved.filter(id => available.has(id));
+    try { localStorage.setItem(storageKey, JSON.stringify(saved)); } catch {}
+  }
+  syncSavedButtons(); filterServices();
   document.querySelectorAll('[data-filter]').forEach(button => button.addEventListener('click', () => {
     category = button.dataset.filter;
     document.querySelectorAll('[data-filter]').forEach(item => {
@@ -90,7 +95,7 @@
     try {
       const next = JSON.parse(event.newValue || '[]');
       if (!Array.isArray(next)) return;
-      saved = [...new Set(next.filter(id => /^[1-6]$/.test(String(id))).map(String))];
+      saved = [...new Set(next.filter(id => /^[1-9][0-9]{0,9}$/.test(String(id))).map(String))];
       syncSavedButtons(); filterServices();
     } catch { /* Ignore malformed storage written elsewhere. */ }
   });

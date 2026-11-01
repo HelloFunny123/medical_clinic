@@ -1,0 +1,21 @@
+{
+  "executed_at": "2026-11-01T12:58:03.433015+07:00",
+  "pdf_pages": 35,
+  "original_screenshots": 40,
+  "docx_embedded_images": 41,
+  "php_syntax_checks": 33,
+  "javascript_syntax_checks": 4,
+  "schema_files_agree": true,
+  "pdf_text_inside_margins": true,
+  "all_figures_referenced": true,
+  "artifacts": {
+    "LAB_2_Report_Huynh_Duc_Phat_2452940.pdf": {
+      "bytes": 11800745,
+      "sha256": "9995d8472958770c9361c4ed172ca9c849e57f047bfcd9eb3732d415a6876dc2"
+    },
+    "LAB_2_Report_Huynh_Duc_Phat_2452940.docx": {
+      "bytes": 8311944,
+      "sha256": "d1f9bc3fe067cbfd0ebea9c0678f35bd12116113399027aa731322647ba0ae3e"
+    }
+  }
+}

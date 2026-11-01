@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="490" height="405" preserveAspectRatio="xMinYMin meet" viewBox="0 0 490 405" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="490" height="405"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-405)" style="clip-path: url(#clip)">
+		<g transform="">
+			<rect x="0" y="0" width="490" height="405" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<rect x="0" y="255" width="145" height="115" rx="6" ry="0" style="stroke: rgb(9%,41%,35%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<rect x="0" y="343" width="145" height="27" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,90%); fill-rule: evenodd;"/>
+			<text x="8" y="353" style="font-family: Helvetica-Bold; font-size: 9.5px;fill: rgb(9%,23%,20%); stroke:none;" transform="translate(0,706) scale(1,-1)">users</text>
+			<text x="8" y="329" style="font-family: Helvetica; font-size: 9px;fill: rgb(9%,23%,20%); stroke:none;" transform="translate(0,658) scale(1,-1)">PK id</text>
+			<text x="8" y="314" style="font-family: Helvetica; font-size: 9px;fill: rgb(9%,23%,20%); stroke:none;" transform="translate(0,628) scale(1,-1)">UQ email</text>
+			<text x="8" y="299" style="font-family: Helvetica; font-size: 9px;fill: rgb(9%,23%,20%); stroke:none;" transform="translate(0,598) scale(1,-1)">password_hash</text>
+			<text x="8" y="284" style="font-family: Helvetica; font-size: 9px;fill: rgb(9%,23%,20%); stroke:none;" transform="translate(0,568) scale(1,-1)">role / is_active</text>
+			<text x="8" y="269" style="font-family: Helvetica; font-size: 9px;fill: rgb(9%,23%,20%); stroke:none;" transform="translate(0,538) scale(1,-1)">full_name / created_at</text>
+			<rect x="345" y="255" width="145" height="115" rx="6" ry="0" style="stroke: rgb(9%,41%,35%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<rect x="345" y="343" width="145" height="27" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,90%); fill-rule: evenodd;"/>
+			<text x="353" y="353" style="font-family: Helvetica-Bold; font-size: 9.5px;fill: rgb(9%,23%,20%); stroke:none;" transform="translate(0,706) scale(1,-1)">services</text>
+			<text x="353" y="329" style="font-family: Helvetica; font-size: 9px;fill: rgb(9%,23%,20%); stroke:none;" transform="translate(0,658) scale(1,-1)">PK id</text>
+			<text x="353" y="314" style="font-family: Helvetica; font-size: 9px;fill: rgb(9%,23%,20%); stroke:none;" transform="translate(0,628) scale(1,-1)">FK category_id</text>
+			<text x="353" y="299" style="font-family: Helvetica; font-size: 9px;fill: rgb(9%,23%,20%); stroke:none;" transform="translate(0,598) scale(1,-1)">name / price / duration</text>
+			<text x="353" y="284" style="font-family: Helvetica; font-size: 9px;fill: rgb(9%,23%,20%); stroke:none;" transform="translate(0,568) scale(1,-1)">is_active / version</text>
+			<text x="353" y="269" style="font-family: Helvetica; font-size: 9px;fill: rgb(9%,23%,20%); stroke:none;" transform="translate(0,538) scale(1,-1)">... full dictionary in report</text>
+			<rect x="0" y="60" width="145" height="115" rx="6" ry="0" style="stroke: rgb(9%,41%,35%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<rect x="0" y="148" width="145" height="27" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,90%); fill-rule: evenodd;"/>
+			<text x="8" y="158" style="font-family: Helvetica-Bold; font-size: 9.5px;fill: rgb(9%,23%,20%); stroke:none;" transform="translate(0,316) scale(1,-1)">audit_logs</text>
+			<text x="8" y="134" style="font-family: Helvetica; font-size: 9px;fill: rgb(9%,23%,20%); stroke:none;" transform="translate(0,268) scale(1,-1)">PK id</text>
+			<text x="8" y="119" style="font-family: Helvetica; font-size: 9px;fill: rgb(9%,23%,20%); stroke:none;" transform="translate(0,238) scale(1,-1)">FK user_id (nullable)</text>
+			<text x="8" y="104" style="font-family: Helvetica; font-size: 9px;fill: rgb(9%,23%,20%); stroke:none;" transform="translate(0,208) scale(1,-1)">action / entity / entity_id</text>
+			<text x="8" y="89" style="font-family: Helvetica; font-size: 9px;fill: rgb(9%,23%,20%); stroke:none;" transform="translate(0,178) scale(1,-1)">description / created_at</text>
+			<rect x="172.5" y="60" width="145.0" height="115" rx="6" ry="0" style="stroke: rgb(9%,41%,35%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<rect x="172.5" y="148" width="145.0" height="27" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,90%); fill-rule: evenodd;"/>
+			<text x="180.5" y="158" style="font-family: Helvetica-Bold; font-size: 9.5px;fill: rgb(9%,23%,20%); stroke:none;" transform="translate(0,316) scale(1,-1)">appointment_requests</text>
+			<text x="180.5" y="134" style="font-family: Helvetica; font-size: 9px;fill: rgb(9%,23%,20%); stroke:none;" transform="translate(0,268) scale(1,-1)">PK id; UQ reference</text>
+			<text x="180.5" y="119" style="font-family: Helvetica; font-size: 9px;fill: rgb(9%,23%,20%); stroke:none;" transform="translate(0,238) scale(1,-1)">UQ request_key</text>
+			<text x="180.5" y="104" style="font-family: Helvetica; font-size: 9px;fill: rgb(9%,23%,20%); stroke:none;" transform="translate(0,208) scale(1,-1)">FK user_id / service_id</text>
+			<text x="180.5" y="89" style="font-family: Helvetica; font-size: 9px;fill: rgb(9%,23%,20%); stroke:none;" transform="translate(0,178) scale(1,-1)">service_name / quoted_price</text>
+			<text x="180.5" y="74" style="font-family: Helvetica; font-size: 9px;fill: rgb(9%,23%,20%); stroke:none;" transform="translate(0,148) scale(1,-1)">status / version / visit time</text>
+			<rect x="345" y="60" width="145" height="115" rx="6" ry="0" style="stroke: rgb(9%,41%,35%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<rect x="345" y="148" width="145" height="27" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,90%); fill-rule: evenodd;"/>
+			<text x="353" y="158" style="font-family: Helvetica-Bold; font-size: 9.5px;fill: rgb(9%,23%,20%); stroke:none;" transform="translate(0,316) scale(1,-1)">categories</text>
+			<text x="353" y="134" style="font-family: Helvetica; font-size: 9px;fill: rgb(9%,23%,20%); stroke:none;" transform="translate(0,268) scale(1,-1)">PK id</text>
+			<text x="353" y="119" style="font-family: Helvetica; font-size: 9px;fill: rgb(9%,23%,20%); stroke:none;" transform="translate(0,238) scale(1,-1)">UQ name</text>
+			<text x="353" y="104" style="font-family: Helvetica; font-size: 9px;fill: rgb(9%,23%,20%); stroke:none;" transform="translate(0,208) scale(1,-1)">description</text>
+			<path d="M 72.5,255 L 72.5,175 Z" style="stroke: rgb(9%,41%,35%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<polygon points="72.5 175, 69.5 181, 75.5 181" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(9%,41%,35%); fill-rule: evenodd;"/>
+			<text x="80" y="195" style="font-family: Helvetica; font-size: 8px;fill: rgb(9%,23%,20%); stroke:none;" transform="translate(0,390) scale(1,-1)">1 : many; SET NULL</text>
+			<path d="M 145,275 L 225,175 Z" style="stroke: rgb(9%,41%,35%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<polygon points="225 175, 219 172, 219 178" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(9%,41%,35%); fill-rule: evenodd;"/>
+			<text x="82" y="226" style="font-family: Helvetica; font-size: 8px;fill: rgb(9%,23%,20%); stroke:none;" transform="translate(0,452) scale(1,-1)">1 : many; RESTRICT</text>
+			<path d="M 345,275 L 265,175 Z" style="stroke: rgb(9%,41%,35%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<polygon points="265 175, 271 172, 271 178" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(9%,41%,35%); fill-rule: evenodd;"/>
+			<text x="320" y="235" style="font-family: Helvetica; font-size: 8px;fill: rgb(9%,23%,20%); stroke:none;" transform="translate(0,470) scale(1,-1)">1 : many; RESTRICT</text>
+			<path d="M 417.5,175 L 417.5,255 Z" style="stroke: rgb(9%,41%,35%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<polygon points="417.5 255, 414.5 249, 420.5 249" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(9%,41%,35%); fill-rule: evenodd;"/>
+			<text x="422" y="213" style="font-family: Helvetica; font-size: 8px;fill: rgb(9%,23%,20%); stroke:none;" transform="translate(0,426) scale(1,-1)">1 : many</text>
+			<text x="345" y="45" style="font-family: Helvetica; font-size: 8px;fill: rgb(9%,23%,20%); stroke:none;" transform="translate(0,90) scale(1,-1)">category deletion: RESTRICT</text>
+			<rect x="172.5" y="305" width="145.0" height="65" rx="6" ry="0" style="stroke: rgb(9%,41%,35%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(92%,95%,90%); fill-rule: evenodd;"/>
+			<text x="180" y="351" style="font-family: Helvetica-Bold; font-size: 10px;fill: rgb(9%,23%,20%); stroke:none;" transform="translate(0,702) scale(1,-1)">login_attempts</text>
+			<text x="180" y="335" style="font-family: Helvetica; font-size: 8.5px;fill: rgb(9%,23%,20%); stroke:none;" transform="translate(0,670) scale(1,-1)">PK id; identifier; attempted_at</text>
+			<text x="180" y="320" style="font-family: Helvetica; font-size: 8.5px;fill: rgb(9%,23%,20%); stroke:none;" transform="translate(0,640) scale(1,-1)">No foreign key (rate limiting).</text>
+			<text x="0" y="390" style="font-family: Helvetica-Bold; font-size: 13px;fill: rgb(9%,41%,35%); stroke:none;" transform="translate(0,780) scale(1,-1)">Lab 2 relational model — key fields</text>
+			<text x="0" y="35" style="font-family: Helvetica; font-size: 9px;fill: rgb(9%,23%,20%); stroke:none;" transform="translate(0,70) scale(1,-1)">PK: primary key. FK: foreign key. UQ: unique. Arrows: parent -&gt; child.</text>
+			<text x="0" y="19" style="font-family: Helvetica; font-size: 8.5px;fill: rgb(9%,23%,20%); stroke:none;" transform="translate(0,38) scale(1,-1)">Selected attributes shown; all fields and constraints are supplied in database/lab2.sql.</text>
+		</g>
+	</g>
+</svg>

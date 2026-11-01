@@ -1,79 +1,126 @@
-# Wellnest Medical Clinic — LAB 1.3
+# Wellnest Medical Clinic — LAB 2
 
-**Sinh viên:** Huỳnh Đức Phát (2452940) · **Lớp:** CC01  
-**Giảng viên:** NGUYỄN ĐỨC THÁI  
-**Đề tài:** Medical Clinic · **Lab:** Website Layout & Frontend Foundation
+**Sinh viên:** Huỳnh Đức Phát (2452940) · **Lớp:** CC01
+
+**Giảng viên:** NGUYỄN ĐỨC THÁI
+
+**Đề tài:** T3 — Medical Clinic Website
+
+**Lab:** Database-Driven Web Development, CRUD Operations, and User Authentication
 
 ## Mở website
 
-Với dự án ở `xamppfiles/htdocs/medical_clinic`, bật Apache trong XAMPP rồi mở:
+Bật **Apache** và **MySQL** trong XAMPP. Dự án được đặt tại `xamppfiles/htdocs/medical_clinic`.
 
-**http://localhost/medical_clinic/**
+- Website: **http://localhost/medical_clinic/**
+- Đăng ký: http://localhost/medical_clinic/auth/register.php
+- Đăng nhập: http://localhost/medical_clinic/auth/login.php
+- Bệnh nhân: http://localhost/medical_clinic/pages/dashboard.php
+- Admin: **http://localhost/medical_clinic/admin/**
+- phpMyAdmin: http://localhost/phpmyadmin/
 
-Trang chủ: `public/index.php`. Trang chi tiết: `pages/item_details.php?id=1` (ID 1–6).
+Website dùng PHP **8.0+**, MariaDB **10.4+** hoặc MySQL **8.0+**, `pdo_mysql`, `mbstring`, `session`. Ảnh, font, Bootstrap và JavaScript có sẵn trong source; không cần Node.js/Composer để chạy website.
 
-Yêu cầu PHP **8.0+**, extension `pdo_sqlite`, `mbstring`, `session` (đã có trong XAMPP được kiểm tra). Không cần Node.js, Composer, MySQL hay kết nối Internet để chạy website. Dữ liệu dịch vụ tự khởi tạo từ `app/services.php` vào SQLite. Bootstrap 5.3.0 được liên kết qua CDN theo specification và có bản cục bộ đi kèm; ảnh, font và JavaScript đều lưu cục bộ.
+## Cài database trên máy khác
 
-Nếu cài lại trên macOS XAMPP, chạy tại thư mục dự án:
+1. Chép thư mục `medical_clinic` vào `htdocs`.
+2. Bật Apache/MySQL.
+3. Mở phpMyAdmin, chọn **Import**, nhập file **`database/lab2.sql`**. File tạo database `wellnest_lab2`, sáu bảng, khóa ngoại, bốn chuyên khoa, sáu dịch vụ, tài khoản và yêu cầu lịch hẹn mẫu.
+4. Cấu hình tập trung trong `config/database.php`. Mặc định phù hợp XAMPP cục bộ: host `127.0.0.1`, port `3306`, database `wellnest_lab2`, user `root`, mật khẩu trống. Nếu cấu hình máy khác, chép `config/local.example.php` thành `config/local.php` rồi sửa thông tin. `config/local.php` được loại khỏi Git và gói nộp.
+5. Mở website. Dữ liệu không bị seed lại trên mỗi request; thay đổi từ admin hoặc MySQL được giữ nguyên và hiện ra ngay ở frontend.
+
+Trên máy đang thực hiện bài, cấu hình riêng đã dùng tài khoản MySQL **chỉ có SELECT/INSERT/UPDATE/DELETE trên `wellnest_lab2`**, không dùng root trong ứng dụng. Không thay đổi các database khác.
+
+Với macOS XAMPP, nếu Apache chưa có quyền ghi session:
 
 ```sh
 /Applications/XAMPP/xamppfiles/bin/php tools/setup.php --xampp-acl
 ```
 
-Lệnh khởi tạo database và cấp ACL **riêng cho tài khoản Apache `daemon`** trên thư mục runtime/file SQLite. Không đổi quyền source và không mở quyền ghi cho mọi tài khoản. Với PHP chạy bằng tài khoản hiện tại, chỉ cần `php tools/setup.php`. Trên hệ điều hành khác, cấp quyền ghi `storage/` cho đúng tài khoản chạy PHP.
+Lệnh chỉ cấp ACL cho đúng tài khoản Apache `daemon` trên thư mục runtime/session, giữ nguyên quyền source và không dùng `chmod 777`. Trên hệ điều hành khác, cấp quyền ghi `storage/sessions/` cho tài khoản chạy PHP.
 
-Cách chạy thay thế bằng PHP development server:
+Chạy bằng PHP development server nếu cần:
 
 ```sh
-php tools/setup.php
 php -S 127.0.0.1:8080 -t . tools/router.php
 ```
 
-Sau đó mở http://127.0.0.1:8080/. Dùng router đi kèm để chặn các thư mục nội bộ. Apache sử dụng `.htaccess` với `mod_rewrite` và `AllowOverride All`.
+Router đi kèm chặn cấu hình, database, runtime, Git và tài liệu nội bộ. Với Apache, bật `mod_rewrite` và `AllowOverride All` để `.htaccess` hoạt động.
 
-## Nội dung đúng specification
+## Tài khoản demo
 
-- Cấu trúc thư mục `public/`, `pages/`, `components/` đúng yêu cầu.
-- HTML5 semantic, meta viewport, tiêu đề riêng cho từng trang.
-- Bootstrap navbar có Home, Items / Services, Search, Contact; hamburger trên mobile.
-- Hero, 6 thẻ dịch vụ, footer có thương hiệu, copyright và thông tin liên hệ minh họa.
-- Grid `col-12 col-md-6 col-lg-4`: 1 / 2 / 3 cột theo breakpoint Bootstrap.
-- CSS riêng: font, màu sắc, spacing, cards, buttons, hero, footer, hover, reduced motion.
-- Header/footer tái sử dụng bằng PHP `require_once`.
-- Chi tiết cho cả 6 dịch vụ: tên, ảnh, chuyên khoa, mô tả, giá và nút hành động.
-- JavaScript: tìm kiếm, lọc chuyên khoa, trạng thái rỗng, lưu dịch vụ với localStorage và thông báo trực quan.
-- Mở rộng: yêu cầu lịch hẹn demo có validation cả client/server, CSRF, giá lấy từ database, chống ghi trùng khi gửi lại, xác nhận sau khi lưu. Form vẫn dùng được khi tắt JavaScript.
+| Vai trò | Email | Mật khẩu demo |
+| --- | --- | --- |
+| Administrator | `admin@wellnest.example` | `WellnestAdmin!2026` |
+| Patient | `patient@wellnest.example` | `WellnestPatient!2026` |
 
-**Phạm vi:** LAB 1.3 là frontend foundation. SQLite/PHP bổ sung giúp danh sách, chi tiết và yêu cầu demo đồng bộ. Đây là phòng khám giả lập phục vụ học tập: không cung cấp khám chữa bệnh, không gửi email, không thu tiền và không xác nhận lịch khám thực tế. Hãy sử dụng thông tin liên hệ ví dụ trong form.
+Đây là các tài khoản mẫu trong SQL phục vụ chấm bài cục bộ. Mật khẩu được lưu bằng `password_hash()`; `password_verify()` dùng khi đăng nhập. Người đăng ký mới luôn có vai trò **patient**, bất kể giá trị role gửi từ client.
 
-## Report và hồ sơ nộp
+## Tính năng theo specification
 
-Trong `report/`:
+1. **Database:** `users`, `categories`, `services`, `appointment_requests`, `audit_logs`, `login_attempts`; InnoDB, utf8mb4, primary keys, unique email, indexes và foreign keys.
+2. **PHP/MySQL:** PDO dùng một cấu hình chung, prepared statements, exception handling với thông báo chung cho người dùng; không lộ SQL, mật khẩu hoặc stack trace.
+3. **CRUD dịch vụ:** thêm bằng form; danh sách, tìm kiếm/lọc/phân trang và chi tiết; cập nhật đầy đủ; xóa qua trang xác nhận với POST + CSRF. Dịch vụ có lịch hẹn được bảo vệ bởi khóa ngoại, có thể chuyển Draft. Kiểm tra version chống ghi đè khi sửa từ nhiều tab.
+4. **Authentication:** đăng ký, email unique, validation tên/email/password/confirmation, đăng nhập, giới hạn thử sai, đổi session ID, dashboard được bảo vệ và logout bằng POST.
+5. **Sessions/cookies:** session giữ `user_id`, CSRF và thời gian hoạt động; timeout sau 2 giờ không hoạt động. Cookie `wellnest_sidebar` chỉ chứa `expanded` hoặc `collapsed`, tồn tại 30 ngày, SameSite=Lax và giới hạn path dự án. Cookie session là HttpOnly; Secure khi dùng HTTPS. Không lưu mật khẩu trong cookie.
+6. **Phân quyền:** admin quản lý; patient xem và hủy yêu cầu thuộc tài khoản mình. Mọi route admin kiểm tra server, không chỉ ẩn menu. GET xóa và GET logout không thực hiện thay đổi.
+7. **Tích hợp:** Published/Draft đồng bộ website; lịch hẹn của bệnh nhân xuất hiện ở admin; trạng thái admin thay đổi hiện lại trong dashboard bệnh nhân. Giá và tên dịch vụ khi gửi yêu cầu được lưu dưới dạng snapshot để không làm sai lịch sử.
 
-- `LAB_1_3_Report_Huynh_Duc_Phat_2452940.pdf`: bản nộp PDF.
-- `LAB_1_3_Report_Huynh_Duc_Phat_2452940.docx`: bản Word có thể chỉnh sửa.
-- `screenshots/`: ảnh chụp cấu trúc dự án, homepage desktop/mobile/tablet, chi tiết, tương tác JavaScript và form demo.
-- `verification.json`: kết quả kiểm thử được giữ kèm báo cáo.
+Admin có sidebar thu gọn trên desktop, menu trượt trên mobile, overlay, phím Escape và quản lý focus bàn phím. Preferences cho phép xem/đổi và giải thích cookie.
 
-Gói nộp hoàn chỉnh: `submission/LAB_1_3_Medical_Clinic_Huynh_Duc_Phat_2452940.zip`. ZIP chứa toàn bộ source, report và ảnh minh chứng; không đóng gói session hay dữ liệu lịch hẹn thử nghiệm. Database dịch vụ sẽ tự khởi tạo khi chạy.
+**Phạm vi:** Đây là dự án học tập, không cung cấp khám chữa bệnh, không thu tiền, không gửi email và không đặt lịch khám thực tế. Hãy sử dụng thông tin ví dụ trong form.
 
-Report chỉ trình bày các mục lab yêu cầu: cấu trúc, homepage, catalog, details, responsive, JavaScript, accessibility, checklist và ảnh minh chứng.
+## Kiểm thử và report
 
-## Kiểm tra lại
+- `report/lab2/LAB_2_Report_Huynh_Duc_Phat_2452940.pdf`
+- `report/lab2/LAB_2_Report_Huynh_Duc_Phat_2452940.docx`
+- `report/lab2/screenshots/`: phpMyAdmin, CRUD, registration/login/logout, patient/admin, cookies và responsive.
+- `report/lab2/backend-verification.json`, `report/lab2/verification.json`: kết quả kiểm thử.
+- `report/lab2/error-handling-verification.json`: xác minh lỗi database trả HTML/JSON HTTP 503, không lộ chi tiết kết nối.
+- `report/lab2/evidence-index.json`: đối chiếu **40 ảnh chụp thực tế** với phần và chú thích trong báo cáo; `report/lab2/diagrams/` chứa sơ đồ quan hệ ở định dạng PDF/SVG/PNG.
+- `submission/LAB_2_Medical_Clinic_Huynh_Duc_Phat_2452940.zip`: bộ nộp đầy đủ source, SQL, report và ảnh, loại cấu hình riêng/session/QA runtime.
 
-Backend (test dùng SQLite tạm riêng, không sửa dữ liệu website):
+Lần kiểm chứng ngày **01/11/2026** đạt **60 backend checks**, **584 browser assertions**, **208 tổ hợp trang/viewport** trên **16 kích thước 320–2560px** (có màn hình ngang), và **26 lượt axe WCAG A/AA** không báo vi phạm. Bộ kiểm thử dùng Chrome; chưa kiểm chứng trên thiết bị iOS/Android thật hoặc Safari/Firefox. Đây là bằng chứng trong phạm vi đã thử, không phải bảo đảm mọi trình duyệt/màn hình hay điểm chấm của giảng viên.
+
+Backend tests dùng database tạm riêng và tự dọn sau khi chạy (cần quyền tạo database của XAMPP root):
 
 ```sh
-/Applications/XAMPP/xamppfiles/bin/php tests/backend.php
+python3 tools/run_backend_tests.py
 ```
 
-Kiểm thử trình duyệt cần Node.js, `playwright`, `axe-core`, Chrome và website đang chạy. Các công cụ này chỉ dùng lúc kiểm thử, không phải dependency của website:
+Browser tests cần Chrome, Node.js, `playwright`, `axe-core` và website XAMPP đang chạy:
 
 ```sh
 npm install --prefix /tmp/wellnest-qa playwright axe-core
 NODE_PATH=/tmp/wellnest-qa/node_modules node tests/browser.cjs
 ```
 
-Có thể đặt `CHROME_PATH` nếu đường dẫn Chrome khác. `CLINIC_BASE_URL` mặc định là `http://127.0.0.1:8080`, có thể đổi thành `http://localhost/medical_clinic`.
+Đặt `CLINIC_BASE_URL` hoặc `CHROME_PATH` nếu URL/đường dẫn Chrome khác. Bộ test thực hiện CRUD, đăng ký và demo request bằng dữ liệu mang tiền tố QA. Không sử dụng bộ test với dữ liệu production.
 
-Tái tạo report bằng `tools/generate_report.py` (cần `python-docx`, `reportlab`, `Pillow`), sau khi chạy browser tests. Ảnh/font/thư viện có thông tin nguồn và giấy phép tại `public/images/CREDITS.md` và `public/vendor/`.
+Kiểm tra xử lý lỗi database bằng tiến trình PHP tạm riêng, sau đó dọn các bản ghi QA đã tạo:
+
+```sh
+python3 tools/verify_error_handling.py
+/Applications/XAMPP/xamppfiles/bin/php tools/cleanup_qa.php
+```
+
+Tạo lại báo cáo và gói nộp sau khi kiểm thử đạt:
+
+```sh
+python3 -m venv /tmp/wellnest-report-venv
+/tmp/wellnest-report-venv/bin/pip install python-docx reportlab Pillow pymupdf
+/tmp/wellnest-report-venv/bin/python tools/generate_lab2_report.py
+/tmp/wellnest-report-venv/bin/python tools/verify_lab2_deliverables.py
+python3 tools/package_submission.py
+```
+
+Script kiểm thử backend và script tạo báo cáo hiện dùng đường dẫn PHP/MySQL/font của macOS XAMPP; khi chạy các công cụ QA trên Windows/Linux cần điều chỉnh đường dẫn tương ứng. Source PHP chạy độc lập với các công cụ tạo báo cáo này.
+
+## Các phiên bản trên GitHub
+
+Repository: https://github.com/HelloFunny123/medical_clinic
+
+- **`lab-1`**: website và report LAB 1.3 hoàn chỉnh, commit `066802c`.
+- **`lab-2`**: phiên bản MySQL, CRUD, authentication và admin của LAB 2, kèm báo cáo và minh chứng kiểm thử.
+
+Xem Lab 1 mà không thay đổi thư mục đang chạy: mở GitHub, chọn tag `lab-1`. Source Lab 2 tiếp tục mở rộng từ Lab 1 để dùng cho Lab 3. Report Lab 1 vẫn được giữ trong `report/`.

@@ -1,0 +1,205 @@
+{
+  "figures": [
+    {
+      "file": "25-phpmyadmin-tables.png",
+      "section": "3. Relational database and sample data",
+      "caption": "Figure 1. Actual phpMyAdmin structure view: six tables in wellnest_lab2."
+    },
+    {
+      "file": "40-public-desktop.png",
+      "section": "6. Public website and dynamic records",
+      "caption": "Figure 2. Public homepage served by Apache with local visual assets."
+    },
+    {
+      "file": "39-public-catalog-section.png",
+      "section": "6. Public website and dynamic records",
+      "caption": "Figure 3. Medical service cards use actual joined MySQL service/category records."
+    },
+    {
+      "file": "10-create-service-form.png",
+      "section": "7. Create and read a medical service",
+      "caption": "Figure 4. Administrator enters a QA service through the HTML form."
+    },
+    {
+      "file": "11-service-created.png",
+      "section": "7. Create and read a medical service",
+      "caption": "Figure 5. The successful insert appears in the admin service list."
+    },
+    {
+      "file": "27-edit-service-form.png",
+      "section": "8. Update, synchronize and publish",
+      "caption": "Figure 6. Edit form loads the existing database record and version."
+    },
+    {
+      "file": "12-updated-public-record.png",
+      "section": "8. Update, synchronize and publish",
+      "caption": "Figure 7. The same public URL displays the updated consultation fee."
+    },
+    {
+      "file": "13-delete-confirmation.png",
+      "section": "9. Intentional deletion and protected history",
+      "caption": "Figure 8. Deletion requires an explicit checkbox and POST submission."
+    },
+    {
+      "file": "14-deletion-success.png",
+      "section": "9. Intentional deletion and protected history",
+      "caption": "Figure 9. An unreferenced QA service is removed with success feedback."
+    },
+    {
+      "file": "15-related-record-protection.png",
+      "section": "9.1 Referenced deletion and service details",
+      "caption": "Figure 10. Existing appointment requests prevent deletion of a referenced service."
+    },
+    {
+      "file": "28-public-service-details.png",
+      "section": "9.1 Referenced deletion and service details",
+      "caption": "Figure 11. Public details, pricing, duration and visit preparation use the current database record."
+    },
+    {
+      "file": "02-registration-form.png",
+      "section": "10. User registration and patient account",
+      "caption": "Figure 12. Registration collects name, email, password confirmation and demo acknowledgement."
+    },
+    {
+      "file": "03-registration-success-patient-dashboard.png",
+      "section": "10. User registration and patient account",
+      "caption": "Figure 13. The newly registered account signs in to a protected patient dashboard."
+    },
+    {
+      "file": "06-invalid-login.png",
+      "section": "11. Login, sessions and logout",
+      "caption": "Figure 14. Invalid login returns a general credential error."
+    },
+    {
+      "file": "24-logout.png",
+      "section": "11. Login, sessions and logout",
+      "caption": "Figure 15. Logout confirms that the authenticated session has ended."
+    },
+    {
+      "file": "09-sidebar-cookie-compact.png",
+      "section": "12. Preference cookie and persistence",
+      "caption": "Figure 16. Collapsed desktop sidebar remains collapsed after reloading."
+    },
+    {
+      "file": "18-cookie-preferences.png",
+      "section": "12. Preference cookie and persistence",
+      "caption": "Figure 17. Preferences documents and changes the sidebar cookie."
+    },
+    {
+      "file": "38-patient-admin-forbidden.png",
+      "section": "13. Server-side authorization",
+      "caption": "Figure 18. A signed-in patient receives HTTP 403 for administrator functionality."
+    },
+    {
+      "file": "37-guest-access-blocked.png",
+      "section": "13. Server-side authorization",
+      "caption": "Figure 19. An unauthenticated request to a protected page returns to sign-in."
+    },
+    {
+      "file": "29-appointment-form.png",
+      "section": "14. Appointment form and saved confirmation",
+      "caption": "Figure 20. Authenticated request form reads published services and prices from MySQL."
+    },
+    {
+      "file": "04-appointment-confirmation.png",
+      "section": "14. Appointment form and saved confirmation",
+      "caption": "Figure 21. A saved request returns its reference, preferred time and database fee."
+    },
+    {
+      "file": "16-admin-appointments.png",
+      "section": "14.1 Administrator-to-patient synchronization",
+      "caption": "Figure 22. Administrator changes the QA request from Requested to Confirmed."
+    },
+    {
+      "file": "05-patient-request-history.png",
+      "section": "14.1 Administrator-to-patient synchronization",
+      "caption": "Figure 23. Patient request history is backed by the same persisted request records."
+    },
+    {
+      "file": "34-patient-cancellation.png",
+      "section": "14.2 Patient-to-administrator synchronization",
+      "caption": "Figure 24. The owning patient intentionally cancels the confirmed QA request."
+    },
+    {
+      "file": "35-admin-cancellation-synced.png",
+      "section": "14.2 Patient-to-administrator synchronization",
+      "caption": "Figure 25. The same reference becomes Cancelled in the administrator list."
+    },
+    {
+      "file": "07-admin-overview.png",
+      "section": "15. Administration overview and patients",
+      "caption": "Figure 26. Overview computes service, patient and request metrics from MySQL."
+    },
+    {
+      "file": "17-admin-patients.png",
+      "section": "15. Administration overview and patients",
+      "caption": "Figure 27. Patient directory is restricted to administrators and omits password hashes."
+    },
+    {
+      "file": "19-admin-mobile.png",
+      "section": "16. Responsive administration evidence",
+      "caption": "Figure 28. Overview at 375px."
+    },
+    {
+      "file": "20-mobile-sidebar-open.png",
+      "section": "16. Responsive administration evidence",
+      "caption": "Figure 29. Mobile drawer with overlay."
+    },
+    {
+      "file": "21-services-mobile.png",
+      "section": "16. Responsive administration evidence",
+      "caption": "Figure 30. Service rows become mobile cards."
+    },
+    {
+      "file": "22-admin-tablet.png",
+      "section": "16. Responsive administration evidence",
+      "caption": "Figure 31. Tablet administration overview."
+    },
+    {
+      "file": "30-public-mobile.png",
+      "section": "16.1 Responsive public and patient pages",
+      "caption": "Figure 32. Public homepage on mobile."
+    },
+    {
+      "file": "31-detail-mobile.png",
+      "section": "16.1 Responsive public and patient pages",
+      "caption": "Figure 33. Service details on mobile."
+    },
+    {
+      "file": "32-appointment-mobile.png",
+      "section": "16.1 Responsive public and patient pages",
+      "caption": "Figure 34. Stacked mobile request form."
+    },
+    {
+      "file": "23-patient-mobile.png",
+      "section": "16.1 Responsive public and patient pages",
+      "caption": "Figure 35. Patient dashboard on mobile."
+    },
+    {
+      "file": "33-registration-mobile.png",
+      "section": "16.2 Mobile registration and tested sizes",
+      "caption": "Figure 36. Registration retains readable labels and controls at 375px."
+    },
+    {
+      "file": "26-phpmyadmin-services-structure.png",
+      "section": "Appendix A. MySQL structure and password storage",
+      "caption": "Figure 37. Actual phpMyAdmin view of the medical services table structure."
+    },
+    {
+      "file": "36-phpmyadmin-hashed-accounts.png",
+      "section": "Appendix A. MySQL structure and password storage",
+      "caption": "Figure 38. Actual account rows contain password hashes and role fields."
+    },
+    {
+      "file": "01-public-mysql-catalog.png",
+      "section": "Appendix B. Complete public page and service list",
+      "caption": "Figure 39. Full-page public capture. Open the original PNG for full-resolution section detail."
+    },
+    {
+      "file": "08-admin-services.png",
+      "section": "Appendix B. Complete public page and service list",
+      "caption": "Figure 40. Administrator service list with filters, publication state and CRUD actions."
+    }
+  ],
+  "screenshots": 40
+}

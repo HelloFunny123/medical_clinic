@@ -8,9 +8,10 @@
     <meta name="theme-color" content="#176b5b">
     <title><?= e($pageTitle) ?></title>
     <link rel="icon" href="<?= e(base_url('public/images/favicon.svg')) ?>" type="image/svg+xml">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" onerror="this.onerror=null;this.href='<?= e(base_url('public/vendor/bootstrap.min.css')) ?>'">
     <link href="<?= e(base_url('public/vendor/bootstrap.min.css')) ?>" rel="stylesheet">
     <link href="<?= e(base_url('public/css/style.css')) ?>" rel="stylesheet">
+    <link href="<?= e(base_url('public/css/lab2.css')) ?>" rel="stylesheet">
+    <?php if($isAdminPage??false): ?><link href="<?=e(base_url('public/css/admin.css'))?>" rel="stylesheet"><?php endif; ?>
 </head>
-<body>
+<body class="<?= ($isAdminPage??false)?'admin-body':'' ?>">
 <a class="skip-link" href="#main-content">Skip to main content</a>

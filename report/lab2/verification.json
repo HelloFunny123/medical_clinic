@@ -1,0 +1,1981 @@
+{
+  "date": "2026-11-01",
+  "browser": "Chrome",
+  "database": "MariaDB / PDO MySQL",
+  "executed_at": "2026-11-01T05:52:32.524Z",
+  "checks": [
+    "No technical error output: /public/index.php",
+    "Homepage displays actual MySQL records",
+    "Seed service catalog remains available",
+    "No technical error output: /admin/index.php",
+    "Unauthenticated admin access redirects to sign in",
+    "Protected JSON request returns HTTP 401 without a session",
+    "Private resource denied: /config/local.php",
+    "Private resource denied: /database/lab2.sql",
+    "Private resource denied: /storage/clinic.sqlite",
+    "Private resource denied: /.git/config",
+    "Private resource denied: /tests/backend.php",
+    "No technical error output: /auth/register.php",
+    "Server rejects mismatched registration passwords",
+    "Registration succeeds and ignores a client-supplied admin role",
+    "Duplicate registration produces clear feedback",
+    "No technical error output: /auth/login.php",
+    "New account signs in to the protected patient dashboard",
+    "No technical error output: /admin/index.php",
+    "Patient role is forbidden from /admin/index.php",
+    "No technical error output: /admin/services.php",
+    "Patient role is forbidden from /admin/services.php",
+    "No technical error output: /admin/service_form.php",
+    "Patient role is forbidden from /admin/service_form.php",
+    "No technical error output: /admin/service_delete.php?id=1",
+    "Patient role is forbidden from /admin/service_delete.php?id=1",
+    "No technical error output: /admin/appointments.php",
+    "Patient role is forbidden from /admin/appointments.php",
+    "No technical error output: /admin/patients.php",
+    "Patient role is forbidden from /admin/patients.php",
+    "No technical error output: /admin/preferences.php",
+    "Patient role is forbidden from /admin/preferences.php",
+    "Patient cannot bypass authorization by directly posting to the admin form",
+    "No technical error output: /pages/appointment.php?service=1",
+    "Appointment service selection is preserved",
+    "Appointment rejects a forged CSRF token",
+    "Patient request is saved to MySQL with a unique reference",
+    "Request retry is idempotent and server ignores a forged price",
+    "No technical error output: /pages/dashboard.php",
+    "Saved request appears only in its owner’s dashboard",
+    "No technical error output: /auth/login.php",
+    "Failed login provides an appropriate message",
+    "No technical error output: /auth/login.php",
+    "Administrator enters the separate admin workspace",
+    "No technical error output: /admin/index.php",
+    "No technical error output: /admin/services.php",
+    "Desktop sidebar collapses",
+    "Sidebar preference is stored in a non-sensitive SameSite cookie",
+    "Preference expires after 30 days",
+    "Sidebar cookie is applied by PHP after reload",
+    "No technical error output: /admin/service_form.php",
+    "Service CRUD rejects forged CSRF",
+    "Service creation validates required numeric fields on the server",
+    "Create operation gives success feedback",
+    "No technical error output: /pages/item_details.php?id=11",
+    "New admin record appears on the public detail page",
+    "Created price is synchronized with the public website",
+    "No technical error output: /public/index.php#services",
+    "Public catalog dynamically includes new IDs above six",
+    "Saved-service interaction supports newly created records",
+    "No technical error output: /admin/service_form.php?id=11",
+    "No technical error output: /pages/item_details.php?id=11",
+    "Updated fee immediately appears on the same public details record",
+    "A stale admin form cannot overwrite a more recent edit",
+    "No technical error output: /admin/service_form.php?id=11",
+    "No technical error output: /pages/item_details.php?id=11",
+    "Draft services are excluded from public details",
+    "No technical error output: /admin/service_delete.php?id=11",
+    "Opening delete confirmation does not remove a record",
+    "Deletion requires an explicit confirmation",
+    "Delete gives success feedback",
+    "Deleted record is removed from MySQL reads",
+    "No technical error output: /admin/service_delete.php?id=1",
+    "Existing relationships prevent destructive service deletion",
+    "Server foreign key guard also rejects direct delete POST",
+    "No technical error output: /admin/appointments.php",
+    "Administrator can update a demo request status",
+    "No technical error output: /pages/dashboard.php",
+    "Patient history reflects the same updated status",
+    "No technical error output: /admin/patients.php",
+    "No technical error output: /admin/preferences.php",
+    "PHP preference form saves the same sidebar cookie",
+    "No technical error output: /auth/login.php",
+    "360×800 /auth/login.php: no page-level horizontal overflow",
+    "No technical error output: /auth/register.php",
+    "360×800 /auth/register.php: no page-level horizontal overflow",
+    "No technical error output: /public/index.php",
+    "360×800 /public/index.php: no page-level horizontal overflow",
+    "No technical error output: /pages/item_details.php?id=1",
+    "360×800 /pages/item_details.php?id=1: no page-level horizontal overflow",
+    "No technical error output: /pages/dashboard.php",
+    "360×800 /pages/dashboard.php: no page-level horizontal overflow",
+    "No technical error output: /pages/appointment.php",
+    "360×800 /pages/appointment.php: no page-level horizontal overflow",
+    "No technical error output: /admin/index.php",
+    "360×800 /admin/index.php: no page-level horizontal overflow",
+    "No technical error output: /admin/services.php",
+    "360×800 /admin/services.php: no page-level horizontal overflow",
+    "No technical error output: /admin/service_form.php?id=1",
+    "360×800 /admin/service_form.php?id=1: no page-level horizontal overflow",
+    "No technical error output: /admin/appointments.php",
+    "360×800 /admin/appointments.php: no page-level horizontal overflow",
+    "No technical error output: /admin/patients.php",
+    "360×800 /admin/patients.php: no page-level horizontal overflow",
+    "No technical error output: /admin/preferences.php",
+    "360×800 /admin/preferences.php: no page-level horizontal overflow",
+    "No technical error output: /admin/service_delete.php?id=1",
+    "360×800 /admin/service_delete.php?id=1: no page-level horizontal overflow",
+    "No technical error output: /auth/login.php",
+    "414×896 /auth/login.php: no page-level horizontal overflow",
+    "No technical error output: /auth/register.php",
+    "414×896 /auth/register.php: no page-level horizontal overflow",
+    "No technical error output: /public/index.php",
+    "414×896 /public/index.php: no page-level horizontal overflow",
+    "No technical error output: /pages/item_details.php?id=1",
+    "414×896 /pages/item_details.php?id=1: no page-level horizontal overflow",
+    "No technical error output: /pages/dashboard.php",
+    "414×896 /pages/dashboard.php: no page-level horizontal overflow",
+    "No technical error output: /pages/appointment.php",
+    "414×896 /pages/appointment.php: no page-level horizontal overflow",
+    "No technical error output: /admin/index.php",
+    "414×896 /admin/index.php: no page-level horizontal overflow",
+    "No technical error output: /admin/services.php",
+    "414×896 /admin/services.php: no page-level horizontal overflow",
+    "No technical error output: /admin/service_form.php?id=1",
+    "414×896 /admin/service_form.php?id=1: no page-level horizontal overflow",
+    "No technical error output: /admin/appointments.php",
+    "414×896 /admin/appointments.php: no page-level horizontal overflow",
+    "No technical error output: /admin/patients.php",
+    "414×896 /admin/patients.php: no page-level horizontal overflow",
+    "No technical error output: /admin/preferences.php",
+    "414×896 /admin/preferences.php: no page-level horizontal overflow",
+    "No technical error output: /admin/service_delete.php?id=1",
+    "414×896 /admin/service_delete.php?id=1: no page-level horizontal overflow",
+    "No technical error output: /auth/login.php",
+    "844×390 /auth/login.php: no page-level horizontal overflow",
+    "No technical error output: /auth/register.php",
+    "844×390 /auth/register.php: no page-level horizontal overflow",
+    "No technical error output: /public/index.php",
+    "844×390 /public/index.php: no page-level horizontal overflow",
+    "No technical error output: /pages/item_details.php?id=1",
+    "844×390 /pages/item_details.php?id=1: no page-level horizontal overflow",
+    "No technical error output: /pages/dashboard.php",
+    "844×390 /pages/dashboard.php: no page-level horizontal overflow",
+    "No technical error output: /pages/appointment.php",
+    "844×390 /pages/appointment.php: no page-level horizontal overflow",
+    "No technical error output: /admin/index.php",
+    "844×390 /admin/index.php: no page-level horizontal overflow",
+    "No technical error output: /admin/services.php",
+    "844×390 /admin/services.php: no page-level horizontal overflow",
+    "No technical error output: /admin/service_form.php?id=1",
+    "844×390 /admin/service_form.php?id=1: no page-level horizontal overflow",
+    "No technical error output: /admin/appointments.php",
+    "844×390 /admin/appointments.php: no page-level horizontal overflow",
+    "No technical error output: /admin/patients.php",
+    "844×390 /admin/patients.php: no page-level horizontal overflow",
+    "No technical error output: /admin/preferences.php",
+    "844×390 /admin/preferences.php: no page-level horizontal overflow",
+    "No technical error output: /admin/service_delete.php?id=1",
+    "844×390 /admin/service_delete.php?id=1: no page-level horizontal overflow",
+    "No technical error output: /auth/login.php",
+    "1280×800 /auth/login.php: no page-level horizontal overflow",
+    "No technical error output: /auth/register.php",
+    "1280×800 /auth/register.php: no page-level horizontal overflow",
+    "No technical error output: /public/index.php",
+    "1280×800 /public/index.php: no page-level horizontal overflow",
+    "No technical error output: /pages/item_details.php?id=1",
+    "1280×800 /pages/item_details.php?id=1: no page-level horizontal overflow",
+    "No technical error output: /pages/dashboard.php",
+    "1280×800 /pages/dashboard.php: no page-level horizontal overflow",
+    "No technical error output: /pages/appointment.php",
+    "1280×800 /pages/appointment.php: no page-level horizontal overflow",
+    "No technical error output: /admin/index.php",
+    "1280×800 /admin/index.php: no page-level horizontal overflow",
+    "No technical error output: /admin/services.php",
+    "1280×800 /admin/services.php: no page-level horizontal overflow",
+    "No technical error output: /admin/service_form.php?id=1",
+    "1280×800 /admin/service_form.php?id=1: no page-level horizontal overflow",
+    "No technical error output: /admin/appointments.php",
+    "1280×800 /admin/appointments.php: no page-level horizontal overflow",
+    "No technical error output: /admin/patients.php",
+    "1280×800 /admin/patients.php: no page-level horizontal overflow",
+    "No technical error output: /admin/preferences.php",
+    "1280×800 /admin/preferences.php: no page-level horizontal overflow",
+    "No technical error output: /admin/service_delete.php?id=1",
+    "1280×800 /admin/service_delete.php?id=1: no page-level horizontal overflow",
+    "No technical error output: /auth/login.php",
+    "2560×1440 /auth/login.php: no page-level horizontal overflow",
+    "No technical error output: /auth/register.php",
+    "2560×1440 /auth/register.php: no page-level horizontal overflow",
+    "No technical error output: /public/index.php",
+    "2560×1440 /public/index.php: no page-level horizontal overflow",
+    "No technical error output: /pages/item_details.php?id=1",
+    "2560×1440 /pages/item_details.php?id=1: no page-level horizontal overflow",
+    "No technical error output: /pages/dashboard.php",
+    "2560×1440 /pages/dashboard.php: no page-level horizontal overflow",
+    "No technical error output: /pages/appointment.php",
+    "2560×1440 /pages/appointment.php: no page-level horizontal overflow",
+    "No technical error output: /admin/index.php",
+    "2560×1440 /admin/index.php: no page-level horizontal overflow",
+    "No technical error output: /admin/services.php",
+    "2560×1440 /admin/services.php: no page-level horizontal overflow",
+    "No technical error output: /admin/service_form.php?id=1",
+    "2560×1440 /admin/service_form.php?id=1: no page-level horizontal overflow",
+    "No technical error output: /admin/appointments.php",
+    "2560×1440 /admin/appointments.php: no page-level horizontal overflow",
+    "No technical error output: /admin/patients.php",
+    "2560×1440 /admin/patients.php: no page-level horizontal overflow",
+    "No technical error output: /admin/preferences.php",
+    "2560×1440 /admin/preferences.php: no page-level horizontal overflow",
+    "No technical error output: /admin/service_delete.php?id=1",
+    "2560×1440 /admin/service_delete.php?id=1: no page-level horizontal overflow",
+    "No technical error output: /auth/login.php",
+    "320×700 /auth/login.php: no page-level horizontal overflow",
+    "No technical error output: /auth/register.php",
+    "320×700 /auth/register.php: no page-level horizontal overflow",
+    "No technical error output: /public/index.php",
+    "320×700 /public/index.php: no page-level horizontal overflow",
+    "No technical error output: /pages/item_details.php?id=1",
+    "320×700 /pages/item_details.php?id=1: no page-level horizontal overflow",
+    "No technical error output: /pages/dashboard.php",
+    "320×700 /pages/dashboard.php: no page-level horizontal overflow",
+    "No technical error output: /pages/appointment.php",
+    "320×700 /pages/appointment.php: no page-level horizontal overflow",
+    "No technical error output: /admin/index.php",
+    "320×700 /admin/index.php: no page-level horizontal overflow",
+    "No technical error output: /admin/services.php",
+    "320×700 /admin/services.php: no page-level horizontal overflow",
+    "No technical error output: /admin/service_form.php?id=1",
+    "320×700 /admin/service_form.php?id=1: no page-level horizontal overflow",
+    "No technical error output: /admin/appointments.php",
+    "320×700 /admin/appointments.php: no page-level horizontal overflow",
+    "No technical error output: /admin/patients.php",
+    "320×700 /admin/patients.php: no page-level horizontal overflow",
+    "No technical error output: /admin/preferences.php",
+    "320×700 /admin/preferences.php: no page-level horizontal overflow",
+    "No technical error output: /admin/service_delete.php?id=1",
+    "320×700 /admin/service_delete.php?id=1: no page-level horizontal overflow",
+    "No technical error output: /auth/login.php",
+    "375×667 /auth/login.php: no page-level horizontal overflow",
+    "No technical error output: /auth/register.php",
+    "375×667 /auth/register.php: no page-level horizontal overflow",
+    "No technical error output: /public/index.php",
+    "375×667 /public/index.php: no page-level horizontal overflow",
+    "No technical error output: /pages/item_details.php?id=1",
+    "375×667 /pages/item_details.php?id=1: no page-level horizontal overflow",
+    "No technical error output: /pages/dashboard.php",
+    "375×667 /pages/dashboard.php: no page-level horizontal overflow",
+    "No technical error output: /pages/appointment.php",
+    "375×667 /pages/appointment.php: no page-level horizontal overflow",
+    "No technical error output: /admin/index.php",
+    "375×667 /admin/index.php: no page-level horizontal overflow",
+    "No technical error output: /admin/services.php",
+    "375×667 /admin/services.php: no page-level horizontal overflow",
+    "No technical error output: /admin/service_form.php?id=1",
+    "375×667 /admin/service_form.php?id=1: no page-level horizontal overflow",
+    "No technical error output: /admin/appointments.php",
+    "375×667 /admin/appointments.php: no page-level horizontal overflow",
+    "No technical error output: /admin/patients.php",
+    "375×667 /admin/patients.php: no page-level horizontal overflow",
+    "No technical error output: /admin/preferences.php",
+    "375×667 /admin/preferences.php: no page-level horizontal overflow",
+    "No technical error output: /admin/service_delete.php?id=1",
+    "375×667 /admin/service_delete.php?id=1: no page-level horizontal overflow",
+    "No technical error output: /auth/login.php",
+    "390×844 /auth/login.php: no page-level horizontal overflow",
+    "No technical error output: /auth/register.php",
+    "390×844 /auth/register.php: no page-level horizontal overflow",
+    "No technical error output: /public/index.php",
+    "390×844 /public/index.php: no page-level horizontal overflow",
+    "No technical error output: /pages/item_details.php?id=1",
+    "390×844 /pages/item_details.php?id=1: no page-level horizontal overflow",
+    "No technical error output: /pages/dashboard.php",
+    "390×844 /pages/dashboard.php: no page-level horizontal overflow",
+    "No technical error output: /pages/appointment.php",
+    "390×844 /pages/appointment.php: no page-level horizontal overflow",
+    "No technical error output: /admin/index.php",
+    "390×844 /admin/index.php: no page-level horizontal overflow",
+    "No technical error output: /admin/services.php",
+    "390×844 /admin/services.php: no page-level horizontal overflow",
+    "No technical error output: /admin/service_form.php?id=1",
+    "390×844 /admin/service_form.php?id=1: no page-level horizontal overflow",
+    "No technical error output: /admin/appointments.php",
+    "390×844 /admin/appointments.php: no page-level horizontal overflow",
+    "No technical error output: /admin/patients.php",
+    "390×844 /admin/patients.php: no page-level horizontal overflow",
+    "No technical error output: /admin/preferences.php",
+    "390×844 /admin/preferences.php: no page-level horizontal overflow",
+    "No technical error output: /admin/service_delete.php?id=1",
+    "390×844 /admin/service_delete.php?id=1: no page-level horizontal overflow",
+    "No technical error output: /auth/login.php",
+    "576×800 /auth/login.php: no page-level horizontal overflow",
+    "No technical error output: /auth/register.php",
+    "576×800 /auth/register.php: no page-level horizontal overflow",
+    "No technical error output: /public/index.php",
+    "576×800 /public/index.php: no page-level horizontal overflow",
+    "No technical error output: /pages/item_details.php?id=1",
+    "576×800 /pages/item_details.php?id=1: no page-level horizontal overflow",
+    "No technical error output: /pages/dashboard.php",
+    "576×800 /pages/dashboard.php: no page-level horizontal overflow",
+    "No technical error output: /pages/appointment.php",
+    "576×800 /pages/appointment.php: no page-level horizontal overflow",
+    "No technical error output: /admin/index.php",
+    "576×800 /admin/index.php: no page-level horizontal overflow",
+    "No technical error output: /admin/services.php",
+    "576×800 /admin/services.php: no page-level horizontal overflow",
+    "No technical error output: /admin/service_form.php?id=1",
+    "576×800 /admin/service_form.php?id=1: no page-level horizontal overflow",
+    "No technical error output: /admin/appointments.php",
+    "576×800 /admin/appointments.php: no page-level horizontal overflow",
+    "No technical error output: /admin/patients.php",
+    "576×800 /admin/patients.php: no page-level horizontal overflow",
+    "No technical error output: /admin/preferences.php",
+    "576×800 /admin/preferences.php: no page-level horizontal overflow",
+    "No technical error output: /admin/service_delete.php?id=1",
+    "576×800 /admin/service_delete.php?id=1: no page-level horizontal overflow",
+    "No technical error output: /auth/login.php",
+    "768×1024 /auth/login.php: no page-level horizontal overflow",
+    "No technical error output: /auth/register.php",
+    "768×1024 /auth/register.php: no page-level horizontal overflow",
+    "No technical error output: /public/index.php",
+    "768×1024 /public/index.php: no page-level horizontal overflow",
+    "No technical error output: /pages/item_details.php?id=1",
+    "768×1024 /pages/item_details.php?id=1: no page-level horizontal overflow",
+    "No technical error output: /pages/dashboard.php",
+    "768×1024 /pages/dashboard.php: no page-level horizontal overflow",
+    "No technical error output: /pages/appointment.php",
+    "768×1024 /pages/appointment.php: no page-level horizontal overflow",
+    "No technical error output: /admin/index.php",
+    "768×1024 /admin/index.php: no page-level horizontal overflow",
+    "No technical error output: /admin/services.php",
+    "768×1024 /admin/services.php: no page-level horizontal overflow",
+    "No technical error output: /admin/service_form.php?id=1",
+    "768×1024 /admin/service_form.php?id=1: no page-level horizontal overflow",
+    "No technical error output: /admin/appointments.php",
+    "768×1024 /admin/appointments.php: no page-level horizontal overflow",
+    "No technical error output: /admin/patients.php",
+    "768×1024 /admin/patients.php: no page-level horizontal overflow",
+    "No technical error output: /admin/preferences.php",
+    "768×1024 /admin/preferences.php: no page-level horizontal overflow",
+    "No technical error output: /admin/service_delete.php?id=1",
+    "768×1024 /admin/service_delete.php?id=1: no page-level horizontal overflow",
+    "No technical error output: /auth/login.php",
+    "820×1180 /auth/login.php: no page-level horizontal overflow",
+    "No technical error output: /auth/register.php",
+    "820×1180 /auth/register.php: no page-level horizontal overflow",
+    "No technical error output: /public/index.php",
+    "820×1180 /public/index.php: no page-level horizontal overflow",
+    "No technical error output: /pages/item_details.php?id=1",
+    "820×1180 /pages/item_details.php?id=1: no page-level horizontal overflow",
+    "No technical error output: /pages/dashboard.php",
+    "820×1180 /pages/dashboard.php: no page-level horizontal overflow",
+    "No technical error output: /pages/appointment.php",
+    "820×1180 /pages/appointment.php: no page-level horizontal overflow",
+    "No technical error output: /admin/index.php",
+    "820×1180 /admin/index.php: no page-level horizontal overflow",
+    "No technical error output: /admin/services.php",
+    "820×1180 /admin/services.php: no page-level horizontal overflow",
+    "No technical error output: /admin/service_form.php?id=1",
+    "820×1180 /admin/service_form.php?id=1: no page-level horizontal overflow",
+    "No technical error output: /admin/appointments.php",
+    "820×1180 /admin/appointments.php: no page-level horizontal overflow",
+    "No technical error output: /admin/patients.php",
+    "820×1180 /admin/patients.php: no page-level horizontal overflow",
+    "No technical error output: /admin/preferences.php",
+    "820×1180 /admin/preferences.php: no page-level horizontal overflow",
+    "No technical error output: /admin/service_delete.php?id=1",
+    "820×1180 /admin/service_delete.php?id=1: no page-level horizontal overflow",
+    "No technical error output: /auth/login.php",
+    "991×900 /auth/login.php: no page-level horizontal overflow",
+    "No technical error output: /auth/register.php",
+    "991×900 /auth/register.php: no page-level horizontal overflow",
+    "No technical error output: /public/index.php",
+    "991×900 /public/index.php: no page-level horizontal overflow",
+    "No technical error output: /pages/item_details.php?id=1",
+    "991×900 /pages/item_details.php?id=1: no page-level horizontal overflow",
+    "No technical error output: /pages/dashboard.php",
+    "991×900 /pages/dashboard.php: no page-level horizontal overflow",
+    "No technical error output: /pages/appointment.php",
+    "991×900 /pages/appointment.php: no page-level horizontal overflow",
+    "No technical error output: /admin/index.php",
+    "991×900 /admin/index.php: no page-level horizontal overflow",
+    "No technical error output: /admin/services.php",
+    "991×900 /admin/services.php: no page-level horizontal overflow",
+    "No technical error output: /admin/service_form.php?id=1",
+    "991×900 /admin/service_form.php?id=1: no page-level horizontal overflow",
+    "No technical error output: /admin/appointments.php",
+    "991×900 /admin/appointments.php: no page-level horizontal overflow",
+    "No technical error output: /admin/patients.php",
+    "991×900 /admin/patients.php: no page-level horizontal overflow",
+    "No technical error output: /admin/preferences.php",
+    "991×900 /admin/preferences.php: no page-level horizontal overflow",
+    "No technical error output: /admin/service_delete.php?id=1",
+    "991×900 /admin/service_delete.php?id=1: no page-level horizontal overflow",
+    "No technical error output: /auth/login.php",
+    "992×900 /auth/login.php: no page-level horizontal overflow",
+    "No technical error output: /auth/register.php",
+    "992×900 /auth/register.php: no page-level horizontal overflow",
+    "No technical error output: /public/index.php",
+    "992×900 /public/index.php: no page-level horizontal overflow",
+    "No technical error output: /pages/item_details.php?id=1",
+    "992×900 /pages/item_details.php?id=1: no page-level horizontal overflow",
+    "No technical error output: /pages/dashboard.php",
+    "992×900 /pages/dashboard.php: no page-level horizontal overflow",
+    "No technical error output: /pages/appointment.php",
+    "992×900 /pages/appointment.php: no page-level horizontal overflow",
+    "No technical error output: /admin/index.php",
+    "992×900 /admin/index.php: no page-level horizontal overflow",
+    "No technical error output: /admin/services.php",
+    "992×900 /admin/services.php: no page-level horizontal overflow",
+    "No technical error output: /admin/service_form.php?id=1",
+    "992×900 /admin/service_form.php?id=1: no page-level horizontal overflow",
+    "No technical error output: /admin/appointments.php",
+    "992×900 /admin/appointments.php: no page-level horizontal overflow",
+    "No technical error output: /admin/patients.php",
+    "992×900 /admin/patients.php: no page-level horizontal overflow",
+    "No technical error output: /admin/preferences.php",
+    "992×900 /admin/preferences.php: no page-level horizontal overflow",
+    "No technical error output: /admin/service_delete.php?id=1",
+    "992×900 /admin/service_delete.php?id=1: no page-level horizontal overflow",
+    "No technical error output: /auth/login.php",
+    "1024×768 /auth/login.php: no page-level horizontal overflow",
+    "No technical error output: /auth/register.php",
+    "1024×768 /auth/register.php: no page-level horizontal overflow",
+    "No technical error output: /public/index.php",
+    "1024×768 /public/index.php: no page-level horizontal overflow",
+    "No technical error output: /pages/item_details.php?id=1",
+    "1024×768 /pages/item_details.php?id=1: no page-level horizontal overflow",
+    "No technical error output: /pages/dashboard.php",
+    "1024×768 /pages/dashboard.php: no page-level horizontal overflow",
+    "No technical error output: /pages/appointment.php",
+    "1024×768 /pages/appointment.php: no page-level horizontal overflow",
+    "No technical error output: /admin/index.php",
+    "1024×768 /admin/index.php: no page-level horizontal overflow",
+    "No technical error output: /admin/services.php",
+    "1024×768 /admin/services.php: no page-level horizontal overflow",
+    "No technical error output: /admin/service_form.php?id=1",
+    "1024×768 /admin/service_form.php?id=1: no page-level horizontal overflow",
+    "No technical error output: /admin/appointments.php",
+    "1024×768 /admin/appointments.php: no page-level horizontal overflow",
+    "No technical error output: /admin/patients.php",
+    "1024×768 /admin/patients.php: no page-level horizontal overflow",
+    "No technical error output: /admin/preferences.php",
+    "1024×768 /admin/preferences.php: no page-level horizontal overflow",
+    "No technical error output: /admin/service_delete.php?id=1",
+    "1024×768 /admin/service_delete.php?id=1: no page-level horizontal overflow",
+    "No technical error output: /auth/login.php",
+    "1366×768 /auth/login.php: no page-level horizontal overflow",
+    "No technical error output: /auth/register.php",
+    "1366×768 /auth/register.php: no page-level horizontal overflow",
+    "No technical error output: /public/index.php",
+    "1366×768 /public/index.php: no page-level horizontal overflow",
+    "No technical error output: /pages/item_details.php?id=1",
+    "1366×768 /pages/item_details.php?id=1: no page-level horizontal overflow",
+    "No technical error output: /pages/dashboard.php",
+    "1366×768 /pages/dashboard.php: no page-level horizontal overflow",
+    "No technical error output: /pages/appointment.php",
+    "1366×768 /pages/appointment.php: no page-level horizontal overflow",
+    "No technical error output: /admin/index.php",
+    "1366×768 /admin/index.php: no page-level horizontal overflow",
+    "No technical error output: /admin/services.php",
+    "1366×768 /admin/services.php: no page-level horizontal overflow",
+    "No technical error output: /admin/service_form.php?id=1",
+    "1366×768 /admin/service_form.php?id=1: no page-level horizontal overflow",
+    "No technical error output: /admin/appointments.php",
+    "1366×768 /admin/appointments.php: no page-level horizontal overflow",
+    "No technical error output: /admin/patients.php",
+    "1366×768 /admin/patients.php: no page-level horizontal overflow",
+    "No technical error output: /admin/preferences.php",
+    "1366×768 /admin/preferences.php: no page-level horizontal overflow",
+    "No technical error output: /admin/service_delete.php?id=1",
+    "1366×768 /admin/service_delete.php?id=1: no page-level horizontal overflow",
+    "No technical error output: /auth/login.php",
+    "1920×1080 /auth/login.php: no page-level horizontal overflow",
+    "No technical error output: /auth/register.php",
+    "1920×1080 /auth/register.php: no page-level horizontal overflow",
+    "No technical error output: /public/index.php",
+    "1920×1080 /public/index.php: no page-level horizontal overflow",
+    "No technical error output: /pages/item_details.php?id=1",
+    "1920×1080 /pages/item_details.php?id=1: no page-level horizontal overflow",
+    "No technical error output: /pages/dashboard.php",
+    "1920×1080 /pages/dashboard.php: no page-level horizontal overflow",
+    "No technical error output: /pages/appointment.php",
+    "1920×1080 /pages/appointment.php: no page-level horizontal overflow",
+    "No technical error output: /admin/index.php",
+    "1920×1080 /admin/index.php: no page-level horizontal overflow",
+    "No technical error output: /admin/services.php",
+    "1920×1080 /admin/services.php: no page-level horizontal overflow",
+    "No technical error output: /admin/service_form.php?id=1",
+    "1920×1080 /admin/service_form.php?id=1: no page-level horizontal overflow",
+    "No technical error output: /admin/appointments.php",
+    "1920×1080 /admin/appointments.php: no page-level horizontal overflow",
+    "No technical error output: /admin/patients.php",
+    "1920×1080 /admin/patients.php: no page-level horizontal overflow",
+    "No technical error output: /admin/preferences.php",
+    "1920×1080 /admin/preferences.php: no page-level horizontal overflow",
+    "No technical error output: /admin/service_delete.php?id=1",
+    "1920×1080 /admin/service_delete.php?id=1: no page-level horizontal overflow",
+    "No technical error output: /admin/index.php",
+    "Closed mobile sidebar is removed from keyboard navigation",
+    "Mobile sidebar opens with an overlay",
+    "Mobile sidebar exposes its expanded state",
+    "Escape closes the mobile sidebar",
+    "No technical error output: /admin/services.php",
+    "No technical error output: /admin/index.php",
+    "No technical error output: /admin/service_form.php?id=1",
+    "No technical error output: /pages/item_details.php?id=1",
+    "No technical error output: /public/index.php",
+    "No technical error output: /pages/appointment.php?service=1",
+    "No technical error output: /public/index.php",
+    "No technical error output: /pages/item_details.php?id=1",
+    "No technical error output: /pages/appointment.php?service=1",
+    "No technical error output: /auth/register.php",
+    "No technical error output: /pages/dashboard.php",
+    "No technical error output: /auth/login.php",
+    "375px /auth/login.php: axe accessibility audit",
+    "No technical error output: /auth/login.php",
+    "1366px /auth/login.php: axe accessibility audit",
+    "No technical error output: /auth/register.php",
+    "375px /auth/register.php: axe accessibility audit",
+    "No technical error output: /auth/register.php",
+    "1366px /auth/register.php: axe accessibility audit",
+    "No technical error output: /public/index.php",
+    "375px /public/index.php: axe accessibility audit",
+    "No technical error output: /public/index.php",
+    "1366px /public/index.php: axe accessibility audit",
+    "No technical error output: /pages/item_details.php?id=1",
+    "375px /pages/item_details.php?id=1: axe accessibility audit",
+    "No technical error output: /pages/item_details.php?id=1",
+    "1366px /pages/item_details.php?id=1: axe accessibility audit",
+    "No technical error output: /pages/dashboard.php",
+    "375px /pages/dashboard.php: axe accessibility audit",
+    "No technical error output: /pages/dashboard.php",
+    "1366px /pages/dashboard.php: axe accessibility audit",
+    "No technical error output: /pages/appointment.php",
+    "375px /pages/appointment.php: axe accessibility audit",
+    "No technical error output: /pages/appointment.php",
+    "1366px /pages/appointment.php: axe accessibility audit",
+    "No technical error output: /admin/index.php",
+    "375px /admin/index.php: axe accessibility audit",
+    "No technical error output: /admin/index.php",
+    "1366px /admin/index.php: axe accessibility audit",
+    "No technical error output: /admin/services.php",
+    "375px /admin/services.php: axe accessibility audit",
+    "No technical error output: /admin/services.php",
+    "1366px /admin/services.php: axe accessibility audit",
+    "No technical error output: /admin/service_form.php?id=1",
+    "375px /admin/service_form.php?id=1: axe accessibility audit",
+    "No technical error output: /admin/service_form.php?id=1",
+    "1366px /admin/service_form.php?id=1: axe accessibility audit",
+    "No technical error output: /admin/preferences.php",
+    "375px /admin/preferences.php: axe accessibility audit",
+    "No technical error output: /admin/preferences.php",
+    "1366px /admin/preferences.php: axe accessibility audit",
+    "No technical error output: /admin/service_delete.php?id=1",
+    "375px /admin/service_delete.php?id=1: axe accessibility audit",
+    "No technical error output: /admin/service_delete.php?id=1",
+    "1366px /admin/service_delete.php?id=1: axe accessibility audit",
+    "No technical error output: /admin/appointments.php",
+    "375px /admin/appointments.php: axe accessibility audit",
+    "No technical error output: /admin/appointments.php",
+    "1366px /admin/appointments.php: axe accessibility audit",
+    "No technical error output: /admin/patients.php",
+    "375px /admin/patients.php: axe accessibility audit",
+    "No technical error output: /admin/patients.php",
+    "1366px /admin/patients.php: axe accessibility audit",
+    "No technical error output: /admin/index.php",
+    "Authentication session uses an HttpOnly SameSite cookie",
+    "Logout ends admin access on the server",
+    "A pre-logout session identifier cannot regain admin access",
+    "No technical error output: /pages/dashboard.php",
+    "Patient can cancel their own confirmed request",
+    "No technical error output: /auth/login.php",
+    "No technical error output: /admin/appointments.php",
+    "Patient cancellation is synchronized back to administration",
+    "Patient logout terminates the protected session",
+    "No technical error output: /auth/login.php",
+    "Repeated invalid logins trigger server-side rate limiting",
+    "Authentication and protected dashboard work without JavaScript",
+    "Native PHP appointment form uses POST/Redirect/GET without JavaScript",
+    "Cookies never contain account passwords",
+    "Actual phpMyAdmin displays the Lab 2 database tables",
+    "No technical error output: /admin/services.php",
+    "No uncaught JavaScript errors during browser testing",
+    "All requested local images, styles, scripts and fonts load successfully"
+  ],
+  "responsive": [
+    {
+      "width": 360,
+      "height": 800,
+      "page": "/auth/login.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "page": "/auth/register.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "page": "/public/index.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "page": "/pages/item_details.php?id=1",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "page": "/pages/dashboard.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "page": "/pages/appointment.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "page": "/admin/index.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "page": "/admin/services.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "page": "/admin/service_form.php?id=1",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "page": "/admin/appointments.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "page": "/admin/patients.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "page": "/admin/preferences.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "page": "/admin/service_delete.php?id=1",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 414,
+      "height": 896,
+      "page": "/auth/login.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 414,
+      "height": 896,
+      "page": "/auth/register.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 414,
+      "height": 896,
+      "page": "/public/index.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 414,
+      "height": 896,
+      "page": "/pages/item_details.php?id=1",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 414,
+      "height": 896,
+      "page": "/pages/dashboard.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 414,
+      "height": 896,
+      "page": "/pages/appointment.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 414,
+      "height": 896,
+      "page": "/admin/index.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 414,
+      "height": 896,
+      "page": "/admin/services.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 414,
+      "height": 896,
+      "page": "/admin/service_form.php?id=1",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 414,
+      "height": 896,
+      "page": "/admin/appointments.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 414,
+      "height": 896,
+      "page": "/admin/patients.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 414,
+      "height": 896,
+      "page": "/admin/preferences.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 414,
+      "height": 896,
+      "page": "/admin/service_delete.php?id=1",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "page": "/auth/login.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "page": "/auth/register.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "page": "/public/index.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "page": "/pages/item_details.php?id=1",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "page": "/pages/dashboard.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "page": "/pages/appointment.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "page": "/admin/index.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "page": "/admin/services.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "page": "/admin/service_form.php?id=1",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "page": "/admin/appointments.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "page": "/admin/patients.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "page": "/admin/preferences.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "page": "/admin/service_delete.php?id=1",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "page": "/auth/login.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "page": "/auth/register.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "page": "/public/index.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "page": "/pages/item_details.php?id=1",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "page": "/pages/dashboard.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "page": "/pages/appointment.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "page": "/admin/index.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "page": "/admin/services.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "page": "/admin/service_form.php?id=1",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "page": "/admin/appointments.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "page": "/admin/patients.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "page": "/admin/preferences.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "page": "/admin/service_delete.php?id=1",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 2560,
+      "height": 1440,
+      "page": "/auth/login.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 2560,
+      "height": 1440,
+      "page": "/auth/register.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 2560,
+      "height": 1440,
+      "page": "/public/index.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 2560,
+      "height": 1440,
+      "page": "/pages/item_details.php?id=1",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 2560,
+      "height": 1440,
+      "page": "/pages/dashboard.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 2560,
+      "height": 1440,
+      "page": "/pages/appointment.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 2560,
+      "height": 1440,
+      "page": "/admin/index.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 2560,
+      "height": 1440,
+      "page": "/admin/services.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 2560,
+      "height": 1440,
+      "page": "/admin/service_form.php?id=1",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 2560,
+      "height": 1440,
+      "page": "/admin/appointments.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 2560,
+      "height": 1440,
+      "page": "/admin/patients.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 2560,
+      "height": 1440,
+      "page": "/admin/preferences.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 2560,
+      "height": 1440,
+      "page": "/admin/service_delete.php?id=1",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 320,
+      "height": 700,
+      "page": "/auth/login.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 320,
+      "height": 700,
+      "page": "/auth/register.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 320,
+      "height": 700,
+      "page": "/public/index.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 320,
+      "height": 700,
+      "page": "/pages/item_details.php?id=1",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 320,
+      "height": 700,
+      "page": "/pages/dashboard.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 320,
+      "height": 700,
+      "page": "/pages/appointment.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 320,
+      "height": 700,
+      "page": "/admin/index.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 320,
+      "height": 700,
+      "page": "/admin/services.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 320,
+      "height": 700,
+      "page": "/admin/service_form.php?id=1",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 320,
+      "height": 700,
+      "page": "/admin/appointments.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 320,
+      "height": 700,
+      "page": "/admin/patients.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 320,
+      "height": 700,
+      "page": "/admin/preferences.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 320,
+      "height": 700,
+      "page": "/admin/service_delete.php?id=1",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 375,
+      "height": 667,
+      "page": "/auth/login.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 375,
+      "height": 667,
+      "page": "/auth/register.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 375,
+      "height": 667,
+      "page": "/public/index.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 375,
+      "height": 667,
+      "page": "/pages/item_details.php?id=1",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 375,
+      "height": 667,
+      "page": "/pages/dashboard.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 375,
+      "height": 667,
+      "page": "/pages/appointment.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 375,
+      "height": 667,
+      "page": "/admin/index.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 375,
+      "height": 667,
+      "page": "/admin/services.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 375,
+      "height": 667,
+      "page": "/admin/service_form.php?id=1",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 375,
+      "height": 667,
+      "page": "/admin/appointments.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 375,
+      "height": 667,
+      "page": "/admin/patients.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 375,
+      "height": 667,
+      "page": "/admin/preferences.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 375,
+      "height": 667,
+      "page": "/admin/service_delete.php?id=1",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "page": "/auth/login.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "page": "/auth/register.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "page": "/public/index.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "page": "/pages/item_details.php?id=1",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "page": "/pages/dashboard.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "page": "/pages/appointment.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "page": "/admin/index.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "page": "/admin/services.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "page": "/admin/service_form.php?id=1",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "page": "/admin/appointments.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "page": "/admin/patients.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "page": "/admin/preferences.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "page": "/admin/service_delete.php?id=1",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 576,
+      "height": 800,
+      "page": "/auth/login.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 576,
+      "height": 800,
+      "page": "/auth/register.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 576,
+      "height": 800,
+      "page": "/public/index.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 576,
+      "height": 800,
+      "page": "/pages/item_details.php?id=1",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 576,
+      "height": 800,
+      "page": "/pages/dashboard.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 576,
+      "height": 800,
+      "page": "/pages/appointment.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 576,
+      "height": 800,
+      "page": "/admin/index.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 576,
+      "height": 800,
+      "page": "/admin/services.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 576,
+      "height": 800,
+      "page": "/admin/service_form.php?id=1",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 576,
+      "height": 800,
+      "page": "/admin/appointments.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 576,
+      "height": 800,
+      "page": "/admin/patients.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 576,
+      "height": 800,
+      "page": "/admin/preferences.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 576,
+      "height": 800,
+      "page": "/admin/service_delete.php?id=1",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "page": "/auth/login.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "page": "/auth/register.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "page": "/public/index.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "page": "/pages/item_details.php?id=1",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "page": "/pages/dashboard.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "page": "/pages/appointment.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "page": "/admin/index.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "page": "/admin/services.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "page": "/admin/service_form.php?id=1",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "page": "/admin/appointments.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "page": "/admin/patients.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "page": "/admin/preferences.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "page": "/admin/service_delete.php?id=1",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 820,
+      "height": 1180,
+      "page": "/auth/login.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 820,
+      "height": 1180,
+      "page": "/auth/register.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 820,
+      "height": 1180,
+      "page": "/public/index.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 820,
+      "height": 1180,
+      "page": "/pages/item_details.php?id=1",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 820,
+      "height": 1180,
+      "page": "/pages/dashboard.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 820,
+      "height": 1180,
+      "page": "/pages/appointment.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 820,
+      "height": 1180,
+      "page": "/admin/index.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 820,
+      "height": 1180,
+      "page": "/admin/services.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 820,
+      "height": 1180,
+      "page": "/admin/service_form.php?id=1",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 820,
+      "height": 1180,
+      "page": "/admin/appointments.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 820,
+      "height": 1180,
+      "page": "/admin/patients.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 820,
+      "height": 1180,
+      "page": "/admin/preferences.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 820,
+      "height": 1180,
+      "page": "/admin/service_delete.php?id=1",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 991,
+      "height": 900,
+      "page": "/auth/login.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 991,
+      "height": 900,
+      "page": "/auth/register.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 991,
+      "height": 900,
+      "page": "/public/index.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 991,
+      "height": 900,
+      "page": "/pages/item_details.php?id=1",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 991,
+      "height": 900,
+      "page": "/pages/dashboard.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 991,
+      "height": 900,
+      "page": "/pages/appointment.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 991,
+      "height": 900,
+      "page": "/admin/index.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 991,
+      "height": 900,
+      "page": "/admin/services.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 991,
+      "height": 900,
+      "page": "/admin/service_form.php?id=1",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 991,
+      "height": 900,
+      "page": "/admin/appointments.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 991,
+      "height": 900,
+      "page": "/admin/patients.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 991,
+      "height": 900,
+      "page": "/admin/preferences.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 991,
+      "height": 900,
+      "page": "/admin/service_delete.php?id=1",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 992,
+      "height": 900,
+      "page": "/auth/login.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 992,
+      "height": 900,
+      "page": "/auth/register.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 992,
+      "height": 900,
+      "page": "/public/index.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 992,
+      "height": 900,
+      "page": "/pages/item_details.php?id=1",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 992,
+      "height": 900,
+      "page": "/pages/dashboard.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 992,
+      "height": 900,
+      "page": "/pages/appointment.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 992,
+      "height": 900,
+      "page": "/admin/index.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 992,
+      "height": 900,
+      "page": "/admin/services.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 992,
+      "height": 900,
+      "page": "/admin/service_form.php?id=1",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 992,
+      "height": 900,
+      "page": "/admin/appointments.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 992,
+      "height": 900,
+      "page": "/admin/patients.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 992,
+      "height": 900,
+      "page": "/admin/preferences.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 992,
+      "height": 900,
+      "page": "/admin/service_delete.php?id=1",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "page": "/auth/login.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "page": "/auth/register.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "page": "/public/index.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "page": "/pages/item_details.php?id=1",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "page": "/pages/dashboard.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "page": "/pages/appointment.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "page": "/admin/index.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "page": "/admin/services.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "page": "/admin/service_form.php?id=1",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "page": "/admin/appointments.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "page": "/admin/patients.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "page": "/admin/preferences.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "page": "/admin/service_delete.php?id=1",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "page": "/auth/login.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "page": "/auth/register.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "page": "/public/index.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "page": "/pages/item_details.php?id=1",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "page": "/pages/dashboard.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "page": "/pages/appointment.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "page": "/admin/index.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "page": "/admin/services.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "page": "/admin/service_form.php?id=1",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "page": "/admin/appointments.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "page": "/admin/patients.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "page": "/admin/preferences.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "page": "/admin/service_delete.php?id=1",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "page": "/auth/login.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "page": "/auth/register.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "page": "/public/index.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "page": "/pages/item_details.php?id=1",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "page": "/pages/dashboard.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "page": "/pages/appointment.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "page": "/admin/index.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "page": "/admin/services.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "page": "/admin/service_form.php?id=1",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "page": "/admin/appointments.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "page": "/admin/patients.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "page": "/admin/preferences.php",
+      "noHorizontalScroll": true
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "page": "/admin/service_delete.php?id=1",
+      "noHorizontalScroll": true
+    }
+  ],
+  "accessibility": [
+    {
+      "width": 375,
+      "page": "/auth/login.php",
+      "violations": []
+    },
+    {
+      "width": 1366,
+      "page": "/auth/login.php",
+      "violations": []
+    },
+    {
+      "width": 375,
+      "page": "/auth/register.php",
+      "violations": []
+    },
+    {
+      "width": 1366,
+      "page": "/auth/register.php",
+      "violations": []
+    },
+    {
+      "width": 375,
+      "page": "/public/index.php",
+      "violations": []
+    },
+    {
+      "width": 1366,
+      "page": "/public/index.php",
+      "violations": []
+    },
+    {
+      "width": 375,
+      "page": "/pages/item_details.php?id=1",
+      "violations": []
+    },
+    {
+      "width": 1366,
+      "page": "/pages/item_details.php?id=1",
+      "violations": []
+    },
+    {
+      "width": 375,
+      "page": "/pages/dashboard.php",
+      "violations": []
+    },
+    {
+      "width": 1366,
+      "page": "/pages/dashboard.php",
+      "violations": []
+    },
+    {
+      "width": 375,
+      "page": "/pages/appointment.php",
+      "violations": []
+    },
+    {
+      "width": 1366,
+      "page": "/pages/appointment.php",
+      "violations": []
+    },
+    {
+      "width": 375,
+      "page": "/admin/index.php",
+      "violations": []
+    },
+    {
+      "width": 1366,
+      "page": "/admin/index.php",
+      "violations": []
+    },
+    {
+      "width": 375,
+      "page": "/admin/services.php",
+      "violations": []
+    },
+    {
+      "width": 1366,
+      "page": "/admin/services.php",
+      "violations": []
+    },
+    {
+      "width": 375,
+      "page": "/admin/service_form.php?id=1",
+      "violations": []
+    },
+    {
+      "width": 1366,
+      "page": "/admin/service_form.php?id=1",
+      "violations": []
+    },
+    {
+      "width": 375,
+      "page": "/admin/preferences.php",
+      "violations": []
+    },
+    {
+      "width": 1366,
+      "page": "/admin/preferences.php",
+      "violations": []
+    },
+    {
+      "width": 375,
+      "page": "/admin/service_delete.php?id=1",
+      "violations": []
+    },
+    {
+      "width": 1366,
+      "page": "/admin/service_delete.php?id=1",
+      "violations": []
+    },
+    {
+      "width": 375,
+      "page": "/admin/appointments.php",
+      "violations": []
+    },
+    {
+      "width": 1366,
+      "page": "/admin/appointments.php",
+      "violations": []
+    },
+    {
+      "width": 375,
+      "page": "/admin/patients.php",
+      "violations": []
+    },
+    {
+      "width": 1366,
+      "page": "/admin/patients.php",
+      "violations": []
+    }
+  ],
+  "javascriptErrors": [],
+  "qa_email": "qa-lab2-1793512352524@example.com",
+  "qa_reference": "WN-85A1A5E6EE",
+  "qa_service_id": "11",
+  "qa_rate_email": "limit-1793512381563@example.com",
+  "qa_native_reference": "WN-FC8CFCDA05",
+  "assetErrors": []
+}

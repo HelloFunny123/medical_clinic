@@ -12,5 +12,6 @@
 <div class="toast-region" aria-live="polite" aria-atomic="true"><div class="feedback-toast" id="feedback-toast" hidden><span class="toast-symbol"><?= icon('check') ?></span><span id="toast-message"></span><button type="button" class="icon-button" id="dismiss-toast" aria-label="Dismiss notification"><?= icon('close') ?></button></div></div>
 <script src="<?= e(base_url('public/vendor/bootstrap.bundle.min.js')) ?>"></script>
 <script src="<?= e(base_url('public/js/script.js')) ?>"></script>
+<script src="<?= e(base_url('public/js/account.js')) ?>"></script>
 </body>
 </html>

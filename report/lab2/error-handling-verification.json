@@ -1,0 +1,17 @@
+{
+  "executed_at": "2026-11-01T12:51:59.134132+07:00",
+  "checks": [
+    {
+      "accept": "text/html",
+      "http_status": 503,
+      "generic_message": true,
+      "no_sensitive_details": true
+    },
+    {
+      "accept": "application/json",
+      "http_status": 503,
+      "generic_message": true,
+      "no_sensitive_details": true
+    }
+  ]
+}

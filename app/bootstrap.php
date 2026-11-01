@@ -1,61 +1,57 @@
 <?php
 declare(strict_types=1);
-
+ini_set('display_errors','0');ini_set('log_errors','1');error_reporting(E_ALL);
 date_default_timezone_set('Asia/Ho_Chi_Minh');
-if (session_status() === PHP_SESSION_NONE) {
-    $sessionDirectory = (getenv('CLINIC_STORAGE_DIR') ?: dirname(__DIR__) . '/storage') . '/sessions';
-    if (!is_dir($sessionDirectory) && !mkdir($sessionDirectory, 0770, true) && !is_dir($sessionDirectory)) throw new RuntimeException('Session directory cannot be created.');
-    session_save_path($sessionDirectory);
-    session_name('wellnest_session');
-    session_set_cookie_params(['httponly' => true, 'samesite' => 'Lax', 'secure' => !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off', 'path' => '/']);
+function e($value): string { return htmlspecialchars((string)$value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); }
+function input_text(array $input,string $key,string $default=''): string { return is_string($input[$key]??null) ? trim($input[$key]) : $default; }
+function base_url(string $path=''): string {
+    $script=str_replace('\\','/',$_SERVER['SCRIPT_NAME']??'/public/index.php');
+    $base=preg_replace('~/(public|pages|auth|admin)/[^/]+$~','',$script);
+    return rtrim((string)$base,'/').'/'.ltrim($path,'/');
+}
+function money(int $price): string { return number_format($price,0,'.',',').' ₫'; }
+function redirect(string $path): void { header('Location: '.base_url($path),true,303);exit; }
+function json_response(array $data,int $status=200): void { http_response_code($status);header('Content-Type: application/json; charset=utf-8');echo json_encode($data,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR);exit; }
+function csrf_token(): string { if(empty($_SESSION['csrf'])) $_SESSION['csrf']=bin2hex(random_bytes(32));return $_SESSION['csrf']; }
+function csrf_field(): string { return '<input type="hidden" name="csrf" value="'.e(csrf_token()).'">'; }
+function require_csrf(): void { if(!hash_equals(csrf_token(),input_text($_POST,'csrf'))) render_error(403,'Your form needs a fresh start.','Refresh the page and try again. No changes were saved.'); }
+function flash(string $message,string $type='success'): void { $_SESSION['flash'][]=['message'=>$message,'type'=>$type]; }
+function display_flash(): void { foreach($_SESSION['flash']??[] as $notice) echo '<div class="alert alert-'.($notice['type']==='error'?'danger':'success').'" role="status">'.e($notice['message']).'</div>';unset($_SESSION['flash']); }
+function initials(string $name): string { $parts=preg_split('/\s+/u',trim($name));return mb_strtoupper(mb_substr($parts[0]??'W',0,1).mb_substr($parts[count($parts)-1]??'',0,1)); }
+function render_error(int $status,string $title,string $message): void {
+    http_response_code($status);$pageTitle=$title.' | Wellnest';
+    require dirname(__DIR__).'/components/head.php';require dirname(__DIR__).'/components/header.php';
+    echo '<main id="main-content"><section class="container error-page"><span class="eyebrow">WELLNEST · '.e($status).'</span><h1>'.e($title).'</h1><p>'.e($message).'</p><a class="btn btn-primary" href="'.e(base_url('public/index.php')).'">Back to the clinic</a></section></main>';
+    require dirname(__DIR__).'/components/footer.php';exit;
+}
+set_exception_handler(static function(Throwable $error): void {
+    error_log('Wellnest: '.$error->getMessage());
+    if(PHP_SAPI==='cli') {fwrite(STDERR,"The application could not complete the operation. Check the local server log and database configuration.\n");exit(1);}
+    http_response_code(503);
+    if(str_contains($_SERVER['HTTP_ACCEPT']??'','application/json')) {json_response(['ok'=>false,'errors'=>['form'=>'We could not complete your request. Please try again shortly.']],503);}
+    echo '<!doctype html><html lang="en"><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Temporarily unavailable | Wellnest</title><body style="font:16px/1.8 system-ui;background:#fcfcf8;color:#183c34;padding:10%;max-width:850px"><h1>A little pause in care.</h1><p>We cannot load this page right now. Please try again shortly.</p><a href="'.e(base_url('public/index.php')).'">Try the homepage again</a></body></html>';
+});
+if(session_status()===PHP_SESSION_NONE) {
+    $sessionDirectory=(getenv('CLINIC_STORAGE_DIR')?:dirname(__DIR__).'/storage').'/sessions';
+    if(!is_dir($sessionDirectory)&&!mkdir($sessionDirectory,0770,true)&&!is_dir($sessionDirectory))throw new RuntimeException('Session storage unavailable.');
+    ini_set('session.use_strict_mode','1');ini_set('session.use_only_cookies','1');ini_set('session.gc_maxlifetime','7200');
+    session_save_path($sessionDirectory);session_name('wellnest_lab2_session');
+    session_set_cookie_params(['httponly'=>true,'samesite'=>'Lax','secure'=>!empty($_SERVER['HTTPS'])&&$_SERVER['HTTPS']!=='off','path'=>rtrim(base_url(),'/').'/' ]);
     session_start();
+    if(isset($_SESSION['user_id']) && time()-($_SESSION['last_activity']??0)>7200) {$_SESSION=[];session_regenerate_id(true);}
+    if(isset($_SESSION['user_id']))$_SESSION['last_activity']=time();
 }
-header('X-Content-Type-Options: nosniff');
-header('Referrer-Policy: strict-origin-when-cross-origin');
-header('X-Frame-Options: SAMEORIGIN');
-header('Cache-Control: no-store');
-
-function e($value): string { return htmlspecialchars((string) $value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); }
-function base_url(string $path = ''): string {
-    $script = str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? '/public/index.php');
-    $base = preg_replace('~/(public|pages)/[^/]+$~', '', $script);
-    return rtrim((string) $base, '/') . '/' . ltrim($path, '/');
-}
-function money(int $price): string { return number_format($price, 0, '.', ',') . ' ₫'; }
-function db(): PDO {
-    static $pdo;
-    if ($pdo instanceof PDO) return $pdo;
-    $directory = getenv('CLINIC_STORAGE_DIR') ?: dirname(__DIR__) . '/storage';
-    if (!is_dir($directory) && !mkdir($directory, 0770, true) && !is_dir($directory)) throw new RuntimeException('Storage directory cannot be created.');
-    $pdo = new PDO('sqlite:' . $directory . '/clinic.sqlite', null, null, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC]);
-    $pdo->exec('PRAGMA busy_timeout = 5000');
-    $pdo->exec(file_get_contents(dirname(__DIR__) . '/database/schema.sql'));
-    $pdo->beginTransaction();
-    try {
-        $statement = $pdo->prepare('INSERT INTO services (id,slug,name,category,price,duration,image,alt,tag,summary,description,includes_json,prepare) VALUES (:id,:slug,:name,:category,:price,:duration,:image,:alt,:tag,:summary,:description,:includes_json,:prepare) ON CONFLICT(id) DO UPDATE SET slug=excluded.slug,name=excluded.name,category=excluded.category,price=excluded.price,duration=excluded.duration,image=excluded.image,alt=excluded.alt,tag=excluded.tag,summary=excluded.summary,description=excluded.description,includes_json=excluded.includes_json,prepare=excluded.prepare');
-        foreach (require __DIR__ . '/services.php' as $service) {
-            $service['includes_json'] = json_encode($service['includes'], JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR);
-            unset($service['includes']);
-            $statement->execute($service);
-        }
-        $pdo->commit();
-    } catch (Throwable $error) { $pdo->rollBack(); throw $error; }
-    return $pdo;
-}
-function services(): array { return db()->query('SELECT * FROM services ORDER BY id')->fetchAll(); }
-function find_service($id): ?array {
-    if (!is_string($id) && !is_int($id)) return null;
-    if (!preg_match('/^[1-9][0-9]*$/', (string) $id)) return null;
-    $statement = db()->prepare('SELECT * FROM services WHERE id = ?');
-    $statement->execute([(int) $id]);
-    return $statement->fetch() ?: null;
-}
-function csrf_token(): string {
-    if (empty($_SESSION['csrf'])) $_SESSION['csrf'] = bin2hex(random_bytes(32));
-    return $_SESSION['csrf'];
-}
+header('X-Content-Type-Options: nosniff');header('Referrer-Policy: strict-origin-when-cross-origin');header('X-Frame-Options: SAMEORIGIN');header('Cache-Control: no-store');
+require_once __DIR__.'/database.php';require_once __DIR__.'/auth.php';
 function icon(string $name, string $class = ''): string {
     $paths = [
+        'grid' => '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',
+        'menu' => '<path d="M4 6h16M4 12h16M4 18h16"/>',
+        'edit' => '<path d="m16 3 5 5-12 12H4v-5L16 3Z"/><path d="m13 6 5 5"/>',
+        'trash' => '<path d="M3 6h18M9 6V3h6v3M5 6l1 15h12l1-15M10 10v7M14 10v7"/>',
+        'logout' => '<path d="M9 4H4v16h5M9 12h12m-4-4 4 4-4 4"/>',
+        'settings' => '<circle cx="12" cy="12" r="3"/><path d="m9 3-1 3-3 1-2 3 2 2-1 3 3 2 2 4h4l2-4 3-2-1-3 2-2-2-3-3-1-1-3H9Z"/>',
+        'eye' => '<path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/>',
         'arrow' => '<path d="M5 12h14M13 6l6 6-6 6"/>',
         'arrow-up' => '<path d="M7 17 17 7M7 7h10v10"/>',
         'search' => '<circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4.5 4.5"/>',

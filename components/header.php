@@ -11,7 +11,10 @@
                     <li class="nav-item"><a class="nav-link" data-search-link href="<?= e(base_url('public/index.php#search')) ?>">Search</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?= e(base_url('public/index.php#contact')) ?>">Contact</a></li>
                 </ul>
+                <div class="nav-account">
+                <?php $navigationUser=current_user(); if($navigationUser): ?><a class="account-link" href="<?=e(base_url($navigationUser['role']==='admin'?'admin/index.php':'pages/dashboard.php'))?>"><span class="account-avatar"><?=e(initials($navigationUser['full_name']))?></span><?= $navigationUser['role']==='admin'?'Admin portal':'My care' ?></a><?php else: ?><a class="sign-in-link" href="<?=e(base_url('auth/login.php'))?>">Sign in</a><?php endif; ?>
                 <a class="btn btn-primary nav-book" href="<?= e(base_url('pages/appointment.php')) ?>">Book a visit <?= icon('arrow-up') ?></a>
+                </div>
             </div>
         </div>
     </nav>

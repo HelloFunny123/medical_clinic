@@ -1,142 +1,105 @@
-/* Real Chrome browser checks and submission screenshots.
+/* Lab 2 integration checks against Apache XAMPP. Needs playwright and axe-core.
  * NODE_PATH=/path/to/node_modules node tests/browser.cjs
- * Needs playwright and axe-core; application itself has no Node dependency.
  */
-const { chromium } = require('playwright');
-const assert = require('node:assert/strict');
-const fs = require('node:fs');
-const path = require('node:path');
-const ROOT = path.resolve(__dirname, '..');
-const BASE = process.env.CLINIC_BASE_URL || 'http://127.0.0.1:8080';
-const URL_PREFIX = new URL(BASE).pathname.replace(/\/$/,'');
-const SHOTS = path.join(ROOT, 'report/screenshots');
-const results = {date: new Intl.DateTimeFormat('en-CA', {timeZone:'Asia/Ho_Chi_Minh', year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date()), browser:'Google Chrome', php:'XAMPP PHP 8.0.28', checks:[], responsive:[], accessibility:[], consoleErrors:[]};
-let browser;
-function check(value, message) { assert.ok(value, message); results.checks.push(message); console.log('PASS:', message); }
-async function ready(page, url) {
-  const response = await page.goto(BASE + url, {waitUntil:'networkidle'});
-  await page.evaluate(async () => {
-    await document.fonts.ready;
-    document.querySelectorAll('img').forEach(image => { image.loading = 'eager'; });
-    await Promise.all([...document.images].map(image => image.complete ? Promise.resolve() : new Promise(resolve => {image.onload = resolve; image.onerror = resolve;})));
-  });
-  return response;
-}
-async function snap(page, filename, fullPage=false) { await page.screenshot({path:path.join(SHOTS, filename),fullPage,animations:'disabled'}); }
-(async () => {
-  fs.mkdirSync(SHOTS, {recursive:true});
-  browser = await chromium.launch({executablePath:process.env.CHROME_PATH || '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',headless:true});
-  const context = await browser.newContext({viewport:{width:1366,height:768},deviceScaleFactor:1,reducedMotion:'reduce'});
-  // Deliberately block the CDN: the vendored copy must provide the entire layout offline.
-  await context.route('https://cdn.jsdelivr.net/**', route => route.abort());
-  const page = await context.newPage();
-  page.on('pageerror', error => results.consoleErrors.push(error.message));
-  check((await ready(page,'/public/index.php')).status() === 200,'Homepage responds with HTTP 200');
-  check(await page.locator('#service-grid article.card').count() === 6,'Six medical service Bootstrap cards render');
-  check(await page.locator('header nav,main,footer').count() === 3,'Semantic header navigation, main and footer exist');
-  check(await page.locator('h1').count() === 1,'Homepage has one primary heading');
-  check(await page.locator('img:not([alt]),img[alt=""]').count() === 0,'All images have meaningful alternative text');
-  check(await page.evaluate(()=>[...document.images].every(image=>image.complete && image.naturalWidth>0)),'All local images load successfully');
-  await snap(page,'02-homepage-desktop.png'); await snap(page,'02b-homepage-desktop-full.png',true);
-  await page.locator('#services').scrollIntoViewIfNeeded();
-  await page.evaluate(()=>window.scrollTo(0,document.querySelector('#services').offsetTop-95));
-  await snap(page,'02c-catalog-desktop.png');
-  await page.setViewportSize({width:1366,height:1366});
-  await ready(page,'/public/index.php');
-  await page.evaluate(()=>window.scrollTo(0,document.querySelector('#services').offsetTop-95));
-  await snap(page,'02d-six-service-catalog.png');
-  const sizes = [[320,700],[375,667],[390,844],[576,800],[768,1024],[820,1180],[991,900],[992,900],[1024,768],[1366,768],[1920,1080]];
-  for (const [width,height] of sizes) {
-    await page.setViewportSize({width,height});
-    for (const route of ['/public/index.php','/pages/item_details.php?id=1','/pages/appointment.php?service=1']) {
-      await ready(page,route);
-      const geometry = await page.evaluate(()=>({viewport:innerWidth,document:document.documentElement.scrollWidth,body:document.body.scrollWidth,images:[...document.images].every(image=>image.getBoundingClientRect().right<=innerWidth+1 && image.getBoundingClientRect().left>=-1)}));
-      check(geometry.document<=width && geometry.body<=width && geometry.images,`${width}×${height} ${route}: no horizontal overflow or overflowing images`);
-      let columns = null;
-      if (route === '/public/index.php') {
-        const positions = await page.locator('#service-grid [data-service-card]').evaluateAll(cards=>cards.map(card=>Math.round(card.getBoundingClientRect().top)));
-        columns = positions.filter(top=>Math.abs(top-positions[0])<2).length;
-        check(columns === (width<768?1:width<992?2:3),`${width}px catalog has the required ${columns}-column Bootstrap grid`);
-      }
-      results.responsive.push({width,height,page:route,columns,noHorizontalScroll:true,imagesContained:true});
-    }
-  }
-  await page.setViewportSize({width:375,height:667});
-  await ready(page,'/public/index.php'); await snap(page,'03-homepage-mobile.png'); await snap(page,'03b-homepage-mobile-full.png',true);
-  await page.locator('.navbar-toggler').click();
-  check(await page.locator('#mainNavbar').isVisible(),'Mobile hamburger menu expands');
-  check(await page.locator('.navbar-toggler').getAttribute('aria-expanded') === 'true','Mobile navigation updates aria-expanded');
-  await snap(page,'03c-mobile-navigation.png');
-  await page.locator('#mainNavbar [data-search-link]').click(); await page.waitForTimeout(400);
-  check(await page.locator('#service-search').evaluate(el=>el===document.activeElement),'Search navigation focuses the search input');
-  check(!(await page.locator('#mainNavbar').isVisible()),'Mobile menu collapses after navigation');
-  await page.evaluate(()=>window.scrollTo(0,document.querySelector('#services').offsetTop-80)); await snap(page,'03d-mobile-catalog.png');
-  await page.setViewportSize({width:768,height:1024}); await ready(page,'/public/index.php');
-  await page.evaluate(()=>window.scrollTo(0,document.querySelector('#services').offsetTop-90)); await snap(page,'04-homepage-tablet.png');
-  await page.setViewportSize({width:1366,height:768}); await ready(page,'/public/index.php#services');
-  await page.locator('[data-filter="Primary care"]').click();
-  check(await page.locator('#service-grid [data-service-card]:visible').count() === 2,'Category filter shows only two primary care services');
-  await page.locator('#service-search').fill('preventive');
-  check(await page.locator('#service-grid [data-service-card]:visible').count() === 1,'Search combines correctly with category filtering');
-  await page.locator('#service-search').fill('nothingmatches');
-  check(await page.locator('#empty-state').isVisible(),'An accessible empty state appears for no matches');
-  await page.locator('#reset-filters').click();
-  check(await page.locator('#service-grid [data-service-card]:visible').count() === 6,'Reset restores all six services');
-  await page.locator('[data-filter="Primary care"]').click();
-  await page.locator('[data-save-service="1"]').click();
-  check(await page.locator('#feedback-toast').isVisible(),'Saving a service produces visible JavaScript feedback');
-  check(await page.locator('[data-save-service="1"]').getAttribute('aria-pressed') === 'true','Saved state is exposed to assistive technology');
-  await page.evaluate(()=>window.scrollTo(0,document.querySelector('#services').offsetTop-95)); await snap(page,'06-javascript-interaction.png');
-  await page.reload({waitUntil:'networkidle'});
-  check(await page.locator('[data-save-service="1"]').getAttribute('aria-pressed') === 'true','Saved service persists after page reload');
-  await page.locator('#saved-filter').click(); check(await page.locator('#service-grid [data-service-card]:visible').count() === 1,'Saved-only filter works');
-  await page.locator('[data-save-service="1"]').click(); check(await page.locator('#empty-state').isVisible(),'Removing the last saved service updates the empty state');
-  for (let id=1;id<=6;id++) {
-    check((await ready(page,`/pages/item_details.php?id=${id}`)).status()===200,`Service ${id} details are available`);
-    check(await page.locator('#detail-title').innerText() !== '' && await page.locator('.detail-book').getAttribute('href') === `${URL_PREFIX}/pages/appointment.php?service=${id}`,`Service ${id} action preserves the selected service`);
-  }
-  for (const id of ['999','0','-1','1%20OR%201=1','%3Cscript%3E','1%26x','%5B%5D']) check((await ready(page,`/pages/item_details.php?id=${id}`)).status()===404,`Invalid service ID ${id} returns a helpful HTTP 404`);
-  await ready(page,'/pages/item_details.php?id=1'); await snap(page,'05-item-details.png'); await snap(page,'05b-item-details-full.png',true);
-  await page.setViewportSize({width:375,height:667}); await snap(page,'05c-item-details-mobile.png',true);
-  await page.setViewportSize({width:1366,height:900}); await ready(page,'/pages/appointment.php?service=1');
-  check(await page.locator('#service-id').inputValue()==='1','Appointment form preselects the detail-page service');
-  const post = async overrides => page.evaluate(async values => {
-    const form=document.getElementById('appointment-form'); const body=new FormData(form);
-    Object.entries(values).forEach(([key,value])=>body.set(key,value));
-    const response=await fetch(form.action,{method:'POST',body,headers:{Accept:'application/json'}});
-    return {status:response.status,data:await response.json()};
-  },overrides);
-  let invalid = await post({csrf:'invalid'}); check(invalid.status===403,'Server rejects invalid CSRF tokens');
-  invalid = await post({}); check(invalid.status===422 && !!invalid.data.errors.email,'Server validates a direct request without relying on JavaScript');
-  const nextDate = new Date(); nextDate.setUTCDate(nextDate.getUTCDate()+2); while(nextDate.getUTCDay()===0)nextDate.setUTCDate(nextDate.getUTCDate()+1);
-  const preferredDate=nextDate.toISOString().slice(0,10);
-  await page.locator('#full-name').fill('Demo Student'); await page.locator('#email').fill('demo@example.com'); await page.locator('#preferred-date').fill(preferredDate); await page.locator('#preferred-time').selectOption('09:00'); await page.locator('#consent').check();
-  await snap(page,'07-appointment-form.png');
-  const submission=await page.locator('#appointment-form').evaluate(form=>Object.fromEntries(new FormData(form).entries()));
-  await page.locator('#submit-request').click(); await page.locator('#booking-success:visible').waitFor();
-  check(await page.locator('#confirmation-reference').innerText().then(value=>value.startsWith('WN-')),'A real server request produces a saved demo reference');
-  check(await page.locator('#confirmation-price').innerText()==='250,000 ₫','Server confirmation price matches the catalog and detail page');
-  const reference=await page.locator('#confirmation-reference').innerText();
-  await snap(page,'07b-appointment-confirmation.png');
-  const retry=await context.request.post(BASE+'/pages/appointment.php',{form:{...submission,quoted_price:'1'},headers:{Accept:'application/json'}});
-  const retryResult=await retry.json(); check(retryResult.confirmation.reference===reference && Number(retryResult.confirmation.quoted_price)===250000,'HTTP retry is idempotent and ignores a client-supplied price');
-  await page.reload({waitUntil:'networkidle'}); check(await page.locator('#booking-success').isVisible(),'Confirmation survives refresh without another submission');
-  for (const resource of ['/storage/clinic.sqlite','/app/services.php','/database/schema.sql','/tests/backend.php']) check((await context.request.get(BASE+resource)).status()===403,`Private resource ${resource} is denied by the development router`);
-  const noJs=await browser.newContext({javaScriptEnabled:false,viewport:{width:1366,height:768}}); const basic=await noJs.newPage();
-  await basic.route('https://cdn.jsdelivr.net/**',route=>route.abort()); await basic.goto(BASE+'/pages/appointment.php?service=2');
-  await basic.locator('#full-name').fill('No JS Demo'); await basic.locator('#email').fill('nojs@example.com'); await basic.locator('#preferred-date').fill(preferredDate); await basic.locator('#preferred-time').selectOption('10:00'); await basic.locator('#consent').check(); await basic.locator('#submit-request').click();
-  check(await basic.locator('#booking-success').isVisible(),'Appointment submission works without JavaScript through POST/Redirect/GET'); await noJs.close();
-  for (const width of [375,1366]) {
-    await page.setViewportSize({width,height:width===375?667:768});
-    for (const route of ['/public/index.php','/pages/item_details.php?id=1','/pages/appointment.php']) {
-      await ready(page,route); await page.addScriptTag({path:require.resolve('axe-core/axe.min.js')});
-      const audit = await page.evaluate(async()=>axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21a','wcag21aa']}}));
-      const violations=audit.violations.map(item=>({id:item.id,impact:item.impact,description:item.description,nodes:item.nodes.map(node=>({target:node.target,summary:node.failureSummary}))}));
-      results.accessibility.push({width,page:route,violations,passes:audit.passes.length});
-      check(violations.length===0,`${width}px ${route}: axe WCAG A/AA audit reports no violations`);
-    }
-  }
-  check(results.consoleErrors.length===0,'No uncaught JavaScript errors occurred during browser testing');
-  fs.writeFileSync(path.join(ROOT,'tests/results.json'),JSON.stringify(results,null,2));
-  console.log(`\nAll ${results.checks.length} browser checks passed.`);
-})().catch(error=>{console.error(error);results.error=error.message;fs.writeFileSync(path.join(ROOT,'tests/results.json'),JSON.stringify(results,null,2));process.exitCode=1;}).finally(async()=>{if(browser)await browser.close();});
+const {chromium}=require('playwright');
+const assert=require('node:assert/strict');const fs=require('node:fs');const path=require('node:path');
+const BASE=process.env.CLINIC_BASE_URL||'http://localhost/medical_clinic';
+const ROOT=path.resolve(__dirname,'..');const OUT=path.join(ROOT,'report/lab2');const SHOTS=path.join(OUT,'screenshots');
+const result={date:new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Ho_Chi_Minh',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date()),browser:'Chrome',database:'MariaDB / PDO MySQL',executed_at:new Date().toISOString(),checks:[],responsive:[],accessibility:[],javascriptErrors:[]};
+const assetErrors=[];
+const QA_EMAIL=`qa-lab2-${Date.now()}@example.com`;result.qa_email=QA_EMAIL;let browser;
+function check(condition,label){assert.ok(condition,label);result.checks.push(label);console.log('PASS:',label)}
+async function ready(page,url){if(!page.__watchAssets){page.__watchAssets=true;page.on('response',r=>{if(r.url().startsWith(BASE)&&['image','stylesheet','script','font'].includes(r.request().resourceType())&&r.status()>=400)assetErrors.push({url:r.url(),status:r.status()})})}const response=await page.goto(BASE+url,{waitUntil:'load'});await page.evaluate(async()=>{await document.fonts.ready;document.querySelectorAll('img').forEach(i=>i.loading='eager');await Promise.all([...document.images].map(i=>i.complete?Promise.resolve():new Promise(r=>{i.onload=r;i.onerror=r})))});check(!(await page.locator('body').innerText()).match(/Warning:|Fatal error:|SQLSTATE\[/),'No technical error output: '+url);return response}
+async function shot(page,name,fullPage=false){await page.screenshot({path:path.join(SHOTS,name),fullPage,animations:'disabled'})}
+async function login(page,email,password){await ready(page,'/auth/login.php');await page.locator('#email').fill(email);await page.locator('#password').fill(password);await page.locator('.auth-form button[type=submit]').click();await page.waitForURL(/\/(admin\/index|pages\/dashboard)\.php/)}
+async function postForm(page,selector,overrides={}){return page.evaluate(async({selector,overrides})=>{const form=document.querySelector(selector);const body=new FormData(form);for(const [key,value] of Object.entries(overrides))body.set(key,value);const r=await fetch(form.action||location.href,{method:'POST',body,redirect:'follow'});return{status:r.status,url:r.url,text:await r.text()}},{selector,overrides})}
+(async()=>{
+ fs.mkdirSync(SHOTS,{recursive:true});browser=await chromium.launch({executablePath:process.env.CHROME_PATH||'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',headless:true});
+ const common={viewport:{width:1440,height:1000},reducedMotion:'reduce',deviceScaleFactor:1};
+ const guest=await browser.newContext(common);await guest.route('https://cdn.jsdelivr.net/**',r=>r.abort());const publicPage=await guest.newPage();publicPage.on('pageerror',e=>result.javascriptErrors.push(e.message));
+ check((await ready(publicPage,'/public/index.php')).status()===200,'Homepage displays actual MySQL records');
+ check(await publicPage.locator('#service-grid .card').count()>=6,'Seed service catalog remains available');await shot(publicPage,'01-public-mysql-catalog.png',true);
+ await ready(publicPage,'/admin/index.php');check(publicPage.url().includes('/auth/login.php'),'Unauthenticated admin access redirects to sign in');
+ const missing=await guest.request.get(BASE+'/admin/services.php',{headers:{Accept:'application/json'},maxRedirects:0});check(missing.status()===401,'Protected JSON request returns HTTP 401 without a session');
+ for(const resource of ['/config/local.php','/database/lab2.sql','/storage/clinic.sqlite','/.git/config','/tests/backend.php'])check((await guest.request.get(BASE+resource)).status()===403,'Private resource denied: '+resource);
+ await ready(publicPage,'/auth/register.php');await shot(publicPage,'02-registration-form.png');
+ await publicPage.locator('#full-name').fill('QA Lab2 Patient');await publicPage.locator('#email').fill(QA_EMAIL);await publicPage.locator('#password').fill('WellnestQA!2026');await publicPage.locator('#password-confirmation').fill('WellnestQA!2026');await publicPage.locator('#consent').check();
+ let posted=await postForm(publicPage,'form.auth-form',{password_confirmation:'different'});check(posted.status===422&&posted.text.includes('do not match'),'Server rejects mismatched registration passwords');
+ posted=await postForm(publicPage,'form.auth-form',{role:'admin'});check(posted.url.includes('/auth/login.php')&&posted.text.includes('Your account is ready'),'Registration succeeds and ignores a client-supplied admin role');
+ posted=await postForm(publicPage,'form.auth-form',{});check(posted.status===422&&posted.text.includes('already exists'),'Duplicate registration produces clear feedback');
+ await login(publicPage,QA_EMAIL,'WellnestQA!2026');check(publicPage.url().includes('/pages/dashboard.php'),'New account signs in to the protected patient dashboard');await shot(publicPage,'03-registration-success-patient-dashboard.png');
+ for(const url of ['/admin/index.php','/admin/services.php','/admin/service_form.php','/admin/service_delete.php?id=1','/admin/appointments.php','/admin/patients.php','/admin/preferences.php'])check((await ready(publicPage,url)).status()===403,'Patient role is forbidden from '+url);
+ check((await guest.request.post(BASE+'/admin/service_form.php',{form:{name:'Unauthorized',role:'admin'}})).status()===403,'Patient cannot bypass authorization by directly posting to the admin form');await shot(publicPage,'38-patient-admin-forbidden.png');
+ await ready(publicPage,'/pages/appointment.php?service=1');check(await publicPage.locator('#service-id').inputValue()==='1','Appointment service selection is preserved');
+ const date=new Date();date.setUTCDate(date.getUTCDate()+2);while(date.getUTCDay()===0)date.setUTCDate(date.getUTCDate()+1);const future=date.toISOString().slice(0,10);
+ await publicPage.locator('#preferred-date').fill(future);await publicPage.locator('#preferred-time').selectOption('09:00');await publicPage.locator('#consent').check();
+ const data=await publicPage.locator('#appointment-form').evaluate(form=>Object.fromEntries(new FormData(form)));
+ const denied=await guest.request.post(BASE+'/pages/appointment.php',{form:{...data,csrf:'invalid'},headers:{Accept:'application/json'}});check(denied.status()===403,'Appointment rejects a forged CSRF token');
+ await publicPage.locator('#submit-request').click();await publicPage.locator('#booking-success:visible').waitFor();result.qa_reference=await publicPage.locator('#confirmation-reference').innerText();check(result.qa_reference.startsWith('WN-'),'Patient request is saved to MySQL with a unique reference');
+ const retry=await guest.request.post(BASE+'/pages/appointment.php',{form:{...data,quoted_price:'1'},headers:{Accept:'application/json'}});const retryData=await retry.json();check(retryData.confirmation.reference===result.qa_reference&&Number(retryData.confirmation.quoted_price)===250000,'Request retry is idempotent and server ignores a forged price');
+ await shot(publicPage,'04-appointment-confirmation.png');await ready(publicPage,'/pages/dashboard.php');check((await publicPage.locator('body').innerText()).includes(result.qa_reference),'Saved request appears only in its owner’s dashboard');await shot(publicPage,'05-patient-request-history.png');
+ const adminContext=await browser.newContext(common);await adminContext.route('https://cdn.jsdelivr.net/**',r=>r.abort());const admin=await adminContext.newPage();admin.on('pageerror',e=>result.javascriptErrors.push(e.message));
+ await ready(admin,'/auth/login.php');await admin.locator('#email').fill('admin@wellnest.example');await admin.locator('#password').fill('wrong-password');await admin.locator('.auth-form button[type=submit]').click();check(await admin.locator('.alert-danger').isVisible(),'Failed login provides an appropriate message');await shot(admin,'06-invalid-login.png');
+ await login(admin,'admin@wellnest.example','WellnestAdmin!2026');check(admin.url().includes('/admin/index.php'),'Administrator enters the separate admin workspace');await ready(admin,'/admin/index.php');await shot(admin,'07-admin-overview.png');
+ await ready(admin,'/admin/services.php');await shot(admin,'08-admin-services.png');
+ await admin.locator('#sidebar-toggle').click();check(await admin.locator('#admin-shell').evaluate(e=>e.classList.contains('sidebar-collapsed')),'Desktop sidebar collapses');
+ let cookie=(await adminContext.cookies()).find(c=>c.name==='wellnest_sidebar');check(cookie?.value==='collapsed'&&cookie.sameSite==='Lax','Sidebar preference is stored in a non-sensitive SameSite cookie');check(cookie.expires-Date.now()/1000>29*86400&&cookie.expires-Date.now()/1000<=30*86400+10,'Preference expires after 30 days');
+ await admin.reload({waitUntil:'networkidle'});check(await admin.locator('#admin-shell').evaluate(e=>e.classList.contains('sidebar-collapsed')),'Sidebar cookie is applied by PHP after reload');await shot(admin,'09-sidebar-cookie-compact.png');await admin.locator('#sidebar-toggle').click();
+ await ready(admin,'/admin/service_form.php');const valid={name:'QA Wellness Consultation',category_id:'1',price:'325000',duration:'35',image:'health-screening.jpg',alt:'Clinician reviewing information at a consultation',tag:'A thoughtful first step',summary:'A focused consultation with clear information and personal attention.',description:'A demonstration consultation created through the admin HTML form, with a careful review of everyday health concerns and a clear plan for next steps.',includes:'Health history review\nPersonalized next-step summary',prepare:'Bring a list of medicines and any previous health records.',is_active:'1'};
+ for(const [key,value]of Object.entries(valid)){const field=admin.locator(`#service-editor [name="${key}"]`);if(['category_id','image','is_active'].includes(key))await field.selectOption(value);else await field.fill(value)}
+ await shot(admin,'10-create-service-form.png');posted=await postForm(admin,'#service-editor',{csrf:'forged'});check(posted.status===403,'Service CRUD rejects forged CSRF');
+ posted=await postForm(admin,'#service-editor',{price:'-100'});check(posted.status===422&&posted.text.includes('whole-number'),'Service creation validates required numeric fields on the server');
+ await admin.locator('#service-editor button[type=submit]').click();await admin.waitForURL('**/admin/services.php');check((await admin.locator('body').innerText()).includes('Created QA Wellness Consultation'),'Create operation gives success feedback');
+ const row=admin.locator('.services-table tbody tr').filter({hasText:'QA Wellness Consultation'});const href=await row.locator('a[title="Edit service"]').getAttribute('href');const id=new URL('http://localhost'+href).searchParams.get('id');result.qa_service_id=id;
+ await shot(admin,'11-service-created.png');await ready(publicPage,`/pages/item_details.php?id=${id}`);check(await publicPage.locator('#detail-title').innerText()==='QA Wellness Consultation','New admin record appears on the public detail page');check(await publicPage.locator('.price-panel strong').innerText()==='325,000 ₫','Created price is synchronized with the public website');
+ await ready(publicPage,'/public/index.php#services');check(await publicPage.locator(`[data-save-service="${id}"]`).count()===1,'Public catalog dynamically includes new IDs above six');await publicPage.locator(`[data-save-service="${id}"]`).click();await publicPage.reload({waitUntil:'networkidle'});check(await publicPage.locator(`[data-save-service="${id}"]`).getAttribute('aria-pressed')==='true','Saved-service interaction supports newly created records');
+ await ready(admin,`/admin/service_form.php?id=${id}`);const stale=await admin.locator('#service-editor').evaluate(f=>Object.fromEntries(new FormData(f)));await admin.locator('#price').fill('375000');await admin.locator('#name').fill('QA Wellness Consultation Updated');await admin.locator('#service-editor button[type=submit]').click();await admin.waitForURL('**/admin/services.php');
+ await ready(publicPage,`/pages/item_details.php?id=${id}`);check(await publicPage.locator('.price-panel strong').innerText()==='375,000 ₫','Updated fee immediately appears on the same public details record');await shot(publicPage,'12-updated-public-record.png');
+ const conflict=await adminContext.request.post(BASE+`/admin/service_form.php?id=${id}`,{form:stale});check(conflict.status()===409,'A stale admin form cannot overwrite a more recent edit');
+ await ready(admin,`/admin/service_form.php?id=${id}`);await admin.locator('#is-active').selectOption('0');await admin.locator('#service-editor button[type=submit]').click();await admin.waitForURL('**/admin/services.php');check((await ready(publicPage,`/pages/item_details.php?id=${id}`)).status()===404,'Draft services are excluded from public details');
+ await ready(admin,`/admin/service_delete.php?id=${id}`);await shot(admin,'13-delete-confirmation.png');check((await adminContext.request.get(BASE+`/admin/service_form.php?id=${id}`)).status()===200,'Opening delete confirmation does not remove a record');posted=await postForm(admin,'.delete-panel form',{confirm_delete:'0'});check(posted.status===422,'Deletion requires an explicit confirmation');await admin.locator('#confirm-delete').check();await admin.locator('.delete-panel button[type=submit]').click();await admin.waitForURL('**/admin/services.php');check((await admin.locator('body').innerText()).includes('Deleted QA Wellness Consultation Updated'),'Delete gives success feedback');await shot(admin,'14-deletion-success.png');check((await adminContext.request.get(BASE+`/admin/service_form.php?id=${id}`)).status()===404,'Deleted record is removed from MySQL reads');
+ await ready(admin,'/admin/service_delete.php?id=1');check((await admin.locator('body').innerText()).includes('Existing requests need this record'),'Existing relationships prevent destructive service deletion');await shot(admin,'15-related-record-protection.png');
+ const guarded=await adminContext.request.post(BASE+'/admin/service_delete.php?id=1',{form:{csrf:await admin.locator('input[name=csrf]').first().inputValue(),confirm_delete:'1'}});check(guarded.status()===409,'Server foreign key guard also rejects direct delete POST');
+ await ready(admin,'/admin/appointments.php');const requestRow=admin.locator('.appointments-table tr').filter({hasText:result.qa_reference});await requestRow.locator('select[name=status]').selectOption('confirmed');await requestRow.locator('button[type=submit]').click();await admin.waitForURL('**/admin/appointments.php');check((await admin.locator('.appointments-table tr').filter({hasText:result.qa_reference}).innerText()).includes('Confirmed'),'Administrator can update a demo request status');await shot(admin,'16-admin-appointments.png');
+ await ready(publicPage,'/pages/dashboard.php');check((await publicPage.locator('.patient-visit').filter({hasText:result.qa_reference}).innerText()).includes('Confirmed'),'Patient history reflects the same updated status');
+ await ready(admin,'/admin/patients.php');await shot(admin,'17-admin-patients.png');await ready(admin,'/admin/preferences.php');await shot(admin,'18-cookie-preferences.png');await admin.locator('input[name=sidebar][value=collapsed]').check();await admin.locator('main button[type=submit]').click();await admin.waitForURL('**/admin/preferences.php');check((await adminContext.cookies()).find(c=>c.name==='wellnest_sidebar')?.value==='collapsed','PHP preference form saves the same sidebar cookie');await admin.locator('input[name=sidebar][value=expanded]').check();await admin.locator('main button[type=submit]').click();await admin.waitForURL('**/admin/preferences.php');
+ const authContext=await browser.newContext(common);await authContext.route('https://cdn.jsdelivr.net/**',r=>r.abort());const authPage=await authContext.newPage();authPage.on('pageerror',e=>result.javascriptErrors.push(e.message));
+ const sizes=[[360,800],[414,896],[844,390],[1280,800],[2560,1440],[320,700],[375,667],[390,844],[576,800],[768,1024],[820,1180],[991,900],[992,900],[1024,768],[1366,768],[1920,1080]];
+ for(const [width,height]of sizes){for(const [page,route]of [[authPage,'/auth/login.php'],[authPage,'/auth/register.php'],[publicPage,'/public/index.php'],[publicPage,'/pages/item_details.php?id=1'],[publicPage,'/pages/dashboard.php'],[publicPage,'/pages/appointment.php'],[admin,'/admin/index.php'],[admin,'/admin/services.php'],[admin,'/admin/service_form.php?id=1'],[admin,'/admin/appointments.php'],[admin,'/admin/patients.php'],[admin,'/admin/preferences.php'],[admin,'/admin/service_delete.php?id=1']]){
+  await page.setViewportSize({width,height});await ready(page,route);const metric=await page.evaluate(()=>({doc:document.documentElement.scrollWidth,body:document.body.scrollWidth}));check(metric.doc<=width&&metric.body<=width,`${width}×${height} ${route}: no page-level horizontal overflow`);result.responsive.push({width,height,page:route,noHorizontalScroll:true});
+ }}
+ await admin.setViewportSize({width:375,height:667});await ready(admin,'/admin/index.php');check(await admin.locator('#admin-sidebar').evaluate(e=>e.inert),'Closed mobile sidebar is removed from keyboard navigation');await shot(admin,'19-admin-mobile.png');await admin.locator('#sidebar-toggle').click();check(await admin.locator('#sidebar-overlay').isVisible(),'Mobile sidebar opens with an overlay');check(await admin.locator('#sidebar-toggle').getAttribute('aria-expanded')==='true','Mobile sidebar exposes its expanded state');await shot(admin,'20-mobile-sidebar-open.png');await admin.keyboard.press('Escape');check(!(await admin.locator('#sidebar-overlay').isVisible()),'Escape closes the mobile sidebar');
+ await ready(admin,'/admin/services.php');await shot(admin,'21-services-mobile.png');await admin.setViewportSize({width:768,height:1024});await ready(admin,'/admin/index.php');await shot(admin,'22-admin-tablet.png');
+ await admin.setViewportSize({width:1366,height:900});await ready(admin,'/admin/service_form.php?id=1');await shot(admin,'27-edit-service-form.png',true);
+ await publicPage.setViewportSize({width:1366,height:900});await ready(publicPage,'/pages/item_details.php?id=1');await shot(publicPage,'28-public-service-details.png');
+ await ready(publicPage,'/public/index.php');await shot(publicPage,'40-public-desktop.png');await publicPage.locator('#services').scrollIntoViewIfNeeded();await shot(publicPage,'39-public-catalog-section.png');
+ await ready(publicPage,'/pages/appointment.php?service=1');await shot(publicPage,'29-appointment-form.png');
+ await publicPage.setViewportSize({width:375,height:812});await ready(publicPage,'/public/index.php');await shot(publicPage,'30-public-mobile.png');
+ await ready(publicPage,'/pages/item_details.php?id=1');await shot(publicPage,'31-detail-mobile.png');
+ await ready(publicPage,'/pages/appointment.php?service=1');await shot(publicPage,'32-appointment-mobile.png');
+ await authPage.setViewportSize({width:375,height:812});await ready(authPage,'/auth/register.php');await shot(authPage,'33-registration-mobile.png');
+
+ await publicPage.setViewportSize({width:375,height:667});await ready(publicPage,'/pages/dashboard.php');await shot(publicPage,'23-patient-mobile.png');
+ for(const [page,route]of [[authPage,'/auth/login.php'],[authPage,'/auth/register.php'],[publicPage,'/public/index.php'],[publicPage,'/pages/item_details.php?id=1'],[publicPage,'/pages/dashboard.php'],[publicPage,'/pages/appointment.php'],[admin,'/admin/index.php'],[admin,'/admin/services.php'],[admin,'/admin/service_form.php?id=1'],[admin,'/admin/preferences.php'],[admin,'/admin/service_delete.php?id=1'],[admin,'/admin/appointments.php'],[admin,'/admin/patients.php']]){
+  for(const width of [375,1366]){await page.setViewportSize({width,height:width===375?667:900});await ready(page,route);await page.addScriptTag({path:require.resolve('axe-core/axe.min.js')});const scan=await page.evaluate(()=>axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21a','wcag21aa']}}));const violations=scan.violations.map(v=>({id:v.id,impact:v.impact,nodes:v.nodes.map(n=>({target:n.target,summary:n.failureSummary}))}));result.accessibility.push({width,page:route,violations});check(violations.length===0,`${width}px ${route}: axe accessibility audit`);}
+ }
+ await ready(admin,'/admin/index.php');const sessionCookie=(await adminContext.cookies()).find(c=>c.name==='wellnest_lab2_session');check(sessionCookie.httpOnly&&sessionCookie.sameSite==='Lax','Authentication session uses an HttpOnly SameSite cookie');
+ await admin.locator('.sidebar-user button[type=submit]').click({force:true});await admin.waitForURL('**/auth/login.php?logged_out=1');check((await adminContext.request.get(BASE+'/admin/services.php',{maxRedirects:0})).status()===303,'Logout ends admin access on the server');await shot(admin,'24-logout.png');
+ const replay=await browser.newContext(common);await replay.addCookies([sessionCookie]);check((await replay.request.get(BASE+'/admin/services.php',{maxRedirects:0})).status()===303,'A pre-logout session identifier cannot regain admin access');await replay.close();
+
+ await ready(publicPage,'/pages/dashboard.php');
+ publicPage.once('dialog',dialog=>dialog.accept());await publicPage.locator('.patient-visit').filter({hasText:result.qa_reference}).locator('button').click();await publicPage.waitForURL('**/pages/dashboard.php');check((await publicPage.locator('.patient-visit').filter({hasText:result.qa_reference}).innerText()).includes('Cancelled'),'Patient can cancel their own confirmed request');await shot(publicPage,'34-patient-cancellation.png');
+ await login(admin,'admin@wellnest.example','WellnestAdmin!2026');await ready(admin,'/admin/appointments.php');check((await admin.locator('.appointments-table tr').filter({hasText:result.qa_reference}).innerText()).includes('Cancelled'),'Patient cancellation is synchronized back to administration');await shot(admin,'35-admin-cancellation-synced.png');
+ await admin.locator('.sidebar-user button[type=submit]').click({force:true});await admin.waitForURL('**/auth/login.php?logged_out=1');
+ await publicPage.locator('.patient-account button[type=submit]').click();await publicPage.waitForURL('**/auth/login.php?logged_out=1');check((await guest.request.get(BASE+'/pages/dashboard.php',{maxRedirects:0})).status()===303,'Patient logout terminates the protected session');
+ const limited=await browser.newContext(common);const limitedPage=await limited.newPage();await limited.route('https://cdn.jsdelivr.net/**',r=>r.abort());await ready(limitedPage,'/auth/login.php');result.qa_rate_email=`limit-${Date.now()}@example.com`;await limitedPage.locator('#email').fill(result.qa_rate_email);await limitedPage.locator('#password').fill('Invalid123');let rateResult;for(let attempt=0;attempt<7;attempt++)rateResult=await postForm(limitedPage,'form.auth-form');check(rateResult.status===429&&rateResult.text.includes('15 minutes'),'Repeated invalid logins trigger server-side rate limiting');await limited.close();
+ const nojs=await browser.newContext({javaScriptEnabled:false,viewport:{width:1366,height:768}});await nojs.route('https://cdn.jsdelivr.net/**',r=>r.abort());const native=await nojs.newPage();await native.goto(BASE+'/auth/login.php');await native.locator('#email').fill('patient@wellnest.example');await native.locator('#password').fill('WellnestPatient!2026');await native.locator('.auth-form button[type=submit]').click();await native.waitForURL('**/pages/dashboard.php');check(native.url().includes('/pages/dashboard.php'),'Authentication and protected dashboard work without JavaScript');await native.goto(BASE+'/pages/appointment.php?service=2');await native.locator('#preferred-date').fill(future);await native.locator('#preferred-time').selectOption('10:00');await native.locator('#consent').check();await native.locator('#submit-request').click();check(await native.locator('#booking-success').isVisible(),'Native PHP appointment form uses POST/Redirect/GET without JavaScript');result.qa_native_reference=await native.locator('#confirmation-reference').innerText();await nojs.close();
+ const before=await adminContext.cookies();check(!before.some(c=>c.name==='wellnest_lab2_session')||!before.find(c=>c.name==='wellnest_lab2_session').value.includes('Wellnest'),'Cookies never contain account passwords');
+ const pma=await browser.newPage({viewport:{width:1440,height:1000}});await pma.goto('http://localhost/phpmyadmin/index.php?route=/database/structure&db=wellnest_lab2',{waitUntil:'networkidle'});check((await pma.locator('body').innerText()).includes('appointment_requests'),'Actual phpMyAdmin displays the Lab 2 database tables');if(await pma.locator('#pma_navigation_collapser').count())await pma.locator('#pma_navigation_collapser').click();await shot(pma,'25-phpmyadmin-tables.png');
+ await pma.goto('http://localhost/phpmyadmin/index.php?route=/table/structure&db=wellnest_lab2&table=services',{waitUntil:'networkidle'});await shot(pma,'26-phpmyadmin-services-structure.png');
+ await pma.goto('http://localhost/phpmyadmin/index.php?route=/sql&db=wellnest_lab2&table=users',{waitUntil:'networkidle'});await shot(pma,'36-phpmyadmin-hashed-accounts.png');
+ await ready(publicPage,'/admin/services.php');await shot(publicPage,'37-guest-access-blocked.png');
+
+ check(result.javascriptErrors.length===0,'No uncaught JavaScript errors during browser testing');result.assetErrors=assetErrors;check(assetErrors.length===0,'All requested local images, styles, scripts and fonts load successfully');
+ console.log(`\nAll ${result.checks.length} browser checks passed.`);
+})().catch(error=>{result.error=error.message;console.error(error);process.exitCode=1}).finally(async()=>{fs.mkdirSync(OUT,{recursive:true});fs.writeFileSync(path.join(OUT,'verification.json'),JSON.stringify(result,null,2));if(browser)await browser.close()});

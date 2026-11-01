@@ -1,6 +1,7 @@
 Options -Indexes
 <IfModule mod_rewrite.c>
 RewriteEngine On
-RewriteRule ^(?:app|database|storage|tests|tools|report|submission)(?:/|$) - [F,L]
+RewriteRule (^|/)\. - [F,L]
+RewriteRule ^(?:app|config|database|storage|tests|tools|report|submission)(?:/|$) - [F,L]
 RewriteRule ^(?:README\.md|\.gitignore)$ - [F,L]
 </IfModule>
