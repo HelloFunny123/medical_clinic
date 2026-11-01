@@ -1,0 +1,413 @@
+{
+  "date": "2026-11-01",
+  "browser": "Google Chrome",
+  "php": "XAMPP PHP 8.0.28",
+  "checks": [
+    "Homepage responds with HTTP 200",
+    "Six medical service Bootstrap cards render",
+    "Semantic header navigation, main and footer exist",
+    "Homepage has one primary heading",
+    "All images have meaningful alternative text",
+    "All local images load successfully",
+    "320×700 /public/index.php: no horizontal overflow or overflowing images",
+    "320px catalog has the required 1-column Bootstrap grid",
+    "320×700 /pages/item_details.php?id=1: no horizontal overflow or overflowing images",
+    "320×700 /pages/appointment.php?service=1: no horizontal overflow or overflowing images",
+    "375×667 /public/index.php: no horizontal overflow or overflowing images",
+    "375px catalog has the required 1-column Bootstrap grid",
+    "375×667 /pages/item_details.php?id=1: no horizontal overflow or overflowing images",
+    "375×667 /pages/appointment.php?service=1: no horizontal overflow or overflowing images",
+    "390×844 /public/index.php: no horizontal overflow or overflowing images",
+    "390px catalog has the required 1-column Bootstrap grid",
+    "390×844 /pages/item_details.php?id=1: no horizontal overflow or overflowing images",
+    "390×844 /pages/appointment.php?service=1: no horizontal overflow or overflowing images",
+    "576×800 /public/index.php: no horizontal overflow or overflowing images",
+    "576px catalog has the required 1-column Bootstrap grid",
+    "576×800 /pages/item_details.php?id=1: no horizontal overflow or overflowing images",
+    "576×800 /pages/appointment.php?service=1: no horizontal overflow or overflowing images",
+    "768×1024 /public/index.php: no horizontal overflow or overflowing images",
+    "768px catalog has the required 2-column Bootstrap grid",
+    "768×1024 /pages/item_details.php?id=1: no horizontal overflow or overflowing images",
+    "768×1024 /pages/appointment.php?service=1: no horizontal overflow or overflowing images",
+    "820×1180 /public/index.php: no horizontal overflow or overflowing images",
+    "820px catalog has the required 2-column Bootstrap grid",
+    "820×1180 /pages/item_details.php?id=1: no horizontal overflow or overflowing images",
+    "820×1180 /pages/appointment.php?service=1: no horizontal overflow or overflowing images",
+    "991×900 /public/index.php: no horizontal overflow or overflowing images",
+    "991px catalog has the required 2-column Bootstrap grid",
+    "991×900 /pages/item_details.php?id=1: no horizontal overflow or overflowing images",
+    "991×900 /pages/appointment.php?service=1: no horizontal overflow or overflowing images",
+    "992×900 /public/index.php: no horizontal overflow or overflowing images",
+    "992px catalog has the required 3-column Bootstrap grid",
+    "992×900 /pages/item_details.php?id=1: no horizontal overflow or overflowing images",
+    "992×900 /pages/appointment.php?service=1: no horizontal overflow or overflowing images",
+    "1024×768 /public/index.php: no horizontal overflow or overflowing images",
+    "1024px catalog has the required 3-column Bootstrap grid",
+    "1024×768 /pages/item_details.php?id=1: no horizontal overflow or overflowing images",
+    "1024×768 /pages/appointment.php?service=1: no horizontal overflow or overflowing images",
+    "1366×768 /public/index.php: no horizontal overflow or overflowing images",
+    "1366px catalog has the required 3-column Bootstrap grid",
+    "1366×768 /pages/item_details.php?id=1: no horizontal overflow or overflowing images",
+    "1366×768 /pages/appointment.php?service=1: no horizontal overflow or overflowing images",
+    "1920×1080 /public/index.php: no horizontal overflow or overflowing images",
+    "1920px catalog has the required 3-column Bootstrap grid",
+    "1920×1080 /pages/item_details.php?id=1: no horizontal overflow or overflowing images",
+    "1920×1080 /pages/appointment.php?service=1: no horizontal overflow or overflowing images",
+    "Mobile hamburger menu expands",
+    "Mobile navigation updates aria-expanded",
+    "Search navigation focuses the search input",
+    "Mobile menu collapses after navigation",
+    "Category filter shows only two primary care services",
+    "Search combines correctly with category filtering",
+    "An accessible empty state appears for no matches",
+    "Reset restores all six services",
+    "Saving a service produces visible JavaScript feedback",
+    "Saved state is exposed to assistive technology",
+    "Saved service persists after page reload",
+    "Saved-only filter works",
+    "Removing the last saved service updates the empty state",
+    "Service 1 details are available",
+    "Service 1 action preserves the selected service",
+    "Service 2 details are available",
+    "Service 2 action preserves the selected service",
+    "Service 3 details are available",
+    "Service 3 action preserves the selected service",
+    "Service 4 details are available",
+    "Service 4 action preserves the selected service",
+    "Service 5 details are available",
+    "Service 5 action preserves the selected service",
+    "Service 6 details are available",
+    "Service 6 action preserves the selected service",
+    "Invalid service ID 999 returns a helpful HTTP 404",
+    "Invalid service ID 0 returns a helpful HTTP 404",
+    "Invalid service ID -1 returns a helpful HTTP 404",
+    "Invalid service ID 1%20OR%201=1 returns a helpful HTTP 404",
+    "Invalid service ID %3Cscript%3E returns a helpful HTTP 404",
+    "Invalid service ID 1%26x returns a helpful HTTP 404",
+    "Invalid service ID %5B%5D returns a helpful HTTP 404",
+    "Appointment form preselects the detail-page service",
+    "Server rejects invalid CSRF tokens",
+    "Server validates a direct request without relying on JavaScript",
+    "A real server request produces a saved demo reference",
+    "Server confirmation price matches the catalog and detail page",
+    "HTTP retry is idempotent and ignores a client-supplied price",
+    "Confirmation survives refresh without another submission",
+    "Private resource /storage/clinic.sqlite is denied by the development router",
+    "Private resource /app/services.php is denied by the development router",
+    "Private resource /database/schema.sql is denied by the development router",
+    "Private resource /tests/backend.php is denied by the development router",
+    "Appointment submission works without JavaScript through POST/Redirect/GET",
+    "375px /public/index.php: axe WCAG A/AA audit reports no violations",
+    "375px /pages/item_details.php?id=1: axe WCAG A/AA audit reports no violations",
+    "375px /pages/appointment.php: axe WCAG A/AA audit reports no violations",
+    "1366px /public/index.php: axe WCAG A/AA audit reports no violations",
+    "1366px /pages/item_details.php?id=1: axe WCAG A/AA audit reports no violations",
+    "1366px /pages/appointment.php: axe WCAG A/AA audit reports no violations",
+    "No uncaught JavaScript errors occurred during browser testing"
+  ],
+  "responsive": [
+    {
+      "width": 320,
+      "height": 700,
+      "page": "/public/index.php",
+      "columns": 1,
+      "noHorizontalScroll": true,
+      "imagesContained": true
+    },
+    {
+      "width": 320,
+      "height": 700,
+      "page": "/pages/item_details.php?id=1",
+      "columns": null,
+      "noHorizontalScroll": true,
+      "imagesContained": true
+    },
+    {
+      "width": 320,
+      "height": 700,
+      "page": "/pages/appointment.php?service=1",
+      "columns": null,
+      "noHorizontalScroll": true,
+      "imagesContained": true
+    },
+    {
+      "width": 375,
+      "height": 667,
+      "page": "/public/index.php",
+      "columns": 1,
+      "noHorizontalScroll": true,
+      "imagesContained": true
+    },
+    {
+      "width": 375,
+      "height": 667,
+      "page": "/pages/item_details.php?id=1",
+      "columns": null,
+      "noHorizontalScroll": true,
+      "imagesContained": true
+    },
+    {
+      "width": 375,
+      "height": 667,
+      "page": "/pages/appointment.php?service=1",
+      "columns": null,
+      "noHorizontalScroll": true,
+      "imagesContained": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "page": "/public/index.php",
+      "columns": 1,
+      "noHorizontalScroll": true,
+      "imagesContained": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "page": "/pages/item_details.php?id=1",
+      "columns": null,
+      "noHorizontalScroll": true,
+      "imagesContained": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "page": "/pages/appointment.php?service=1",
+      "columns": null,
+      "noHorizontalScroll": true,
+      "imagesContained": true
+    },
+    {
+      "width": 576,
+      "height": 800,
+      "page": "/public/index.php",
+      "columns": 1,
+      "noHorizontalScroll": true,
+      "imagesContained": true
+    },
+    {
+      "width": 576,
+      "height": 800,
+      "page": "/pages/item_details.php?id=1",
+      "columns": null,
+      "noHorizontalScroll": true,
+      "imagesContained": true
+    },
+    {
+      "width": 576,
+      "height": 800,
+      "page": "/pages/appointment.php?service=1",
+      "columns": null,
+      "noHorizontalScroll": true,
+      "imagesContained": true
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "page": "/public/index.php",
+      "columns": 2,
+      "noHorizontalScroll": true,
+      "imagesContained": true
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "page": "/pages/item_details.php?id=1",
+      "columns": null,
+      "noHorizontalScroll": true,
+      "imagesContained": true
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "page": "/pages/appointment.php?service=1",
+      "columns": null,
+      "noHorizontalScroll": true,
+      "imagesContained": true
+    },
+    {
+      "width": 820,
+      "height": 1180,
+      "page": "/public/index.php",
+      "columns": 2,
+      "noHorizontalScroll": true,
+      "imagesContained": true
+    },
+    {
+      "width": 820,
+      "height": 1180,
+      "page": "/pages/item_details.php?id=1",
+      "columns": null,
+      "noHorizontalScroll": true,
+      "imagesContained": true
+    },
+    {
+      "width": 820,
+      "height": 1180,
+      "page": "/pages/appointment.php?service=1",
+      "columns": null,
+      "noHorizontalScroll": true,
+      "imagesContained": true
+    },
+    {
+      "width": 991,
+      "height": 900,
+      "page": "/public/index.php",
+      "columns": 2,
+      "noHorizontalScroll": true,
+      "imagesContained": true
+    },
+    {
+      "width": 991,
+      "height": 900,
+      "page": "/pages/item_details.php?id=1",
+      "columns": null,
+      "noHorizontalScroll": true,
+      "imagesContained": true
+    },
+    {
+      "width": 991,
+      "height": 900,
+      "page": "/pages/appointment.php?service=1",
+      "columns": null,
+      "noHorizontalScroll": true,
+      "imagesContained": true
+    },
+    {
+      "width": 992,
+      "height": 900,
+      "page": "/public/index.php",
+      "columns": 3,
+      "noHorizontalScroll": true,
+      "imagesContained": true
+    },
+    {
+      "width": 992,
+      "height": 900,
+      "page": "/pages/item_details.php?id=1",
+      "columns": null,
+      "noHorizontalScroll": true,
+      "imagesContained": true
+    },
+    {
+      "width": 992,
+      "height": 900,
+      "page": "/pages/appointment.php?service=1",
+      "columns": null,
+      "noHorizontalScroll": true,
+      "imagesContained": true
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "page": "/public/index.php",
+      "columns": 3,
+      "noHorizontalScroll": true,
+      "imagesContained": true
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "page": "/pages/item_details.php?id=1",
+      "columns": null,
+      "noHorizontalScroll": true,
+      "imagesContained": true
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "page": "/pages/appointment.php?service=1",
+      "columns": null,
+      "noHorizontalScroll": true,
+      "imagesContained": true
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "page": "/public/index.php",
+      "columns": 3,
+      "noHorizontalScroll": true,
+      "imagesContained": true
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "page": "/pages/item_details.php?id=1",
+      "columns": null,
+      "noHorizontalScroll": true,
+      "imagesContained": true
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "page": "/pages/appointment.php?service=1",
+      "columns": null,
+      "noHorizontalScroll": true,
+      "imagesContained": true
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "page": "/public/index.php",
+      "columns": 3,
+      "noHorizontalScroll": true,
+      "imagesContained": true
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "page": "/pages/item_details.php?id=1",
+      "columns": null,
+      "noHorizontalScroll": true,
+      "imagesContained": true
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "page": "/pages/appointment.php?service=1",
+      "columns": null,
+      "noHorizontalScroll": true,
+      "imagesContained": true
+    }
+  ],
+  "accessibility": [
+    {
+      "width": 375,
+      "page": "/public/index.php",
+      "violations": [],
+      "passes": 25
+    },
+    {
+      "width": 375,
+      "page": "/pages/item_details.php?id=1",
+      "violations": [],
+      "passes": 21
+    },
+    {
+      "width": 375,
+      "page": "/pages/appointment.php",
+      "violations": [],
+      "passes": 24
+    },
+    {
+      "width": 1366,
+      "page": "/public/index.php",
+      "violations": [],
+      "passes": 27
+    },
+    {
+      "width": 1366,
+      "page": "/pages/item_details.php?id=1",
+      "violations": [],
+      "passes": 21
+    },
+    {
+      "width": 1366,
+      "page": "/pages/appointment.php",
+      "violations": [],
+      "passes": 24
+    }
+  ],
+  "consoleErrors": []
+}

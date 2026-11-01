@@ -1,0 +1,25 @@
+medical_clinic/
+├── app/
+├── components/
+│   ├── footer.php
+│   ├── head.php
+│   ├── header.php
+│   └── service_card.php
+├── database/
+├── pages/
+│   ├── appointment.php
+│   └── item_details.php
+├── public/
+│   ├── css/
+│   │   └── style.css
+│   ├── images/
+│   ├── js/
+│   │   └── script.js
+│   ├── vendor/
+│   └── index.php
+├── report/
+├── storage/
+├── tests/
+├── tools/
+├── index.php
+└── README.md

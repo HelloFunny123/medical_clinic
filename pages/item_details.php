@@ -1,0 +1,21 @@
+<?php
+require_once __DIR__ . '/../app/bootstrap.php';
+$service = find_service($_GET['id'] ?? '1');
+if (!$service) http_response_code(404);
+$pageTitle = $service ? $service['name'] . ' | Wellnest Medical Clinic' : 'Service not found | Wellnest Medical Clinic';
+$activePage = 'details';
+require_once __DIR__ . '/../components/head.php';
+require_once __DIR__ . '/../components/header.php';
+?>
+<main id="main-content" class="detail-main">
+<?php if (!$service): ?>
+    <section class="container error-page"><span class="eyebrow">LET’S GET YOU BACK ON TRACK</span><h1>That service isn’t here.</h1><p>The service link may be incorrect. Explore our current care services instead.</p><a class="btn btn-primary" href="<?= e(base_url('public/index.php#services')) ?>">Explore services <?= icon('arrow') ?></a></section>
+<?php else: ?>
+    <div class="container"><nav aria-label="Breadcrumb" class="breadcrumb-nav"><ol><li><a href="<?= e(base_url('public/index.php')) ?>">Home</a></li><li><?= icon('chevron') ?><a href="<?= e(base_url('public/index.php#services')) ?>">Services</a></li><li><?= icon('chevron') ?><span aria-current="page"><?= e($service['name']) ?></span></li></ol></nav>
+    <section class="row g-5 detail-intro" aria-labelledby="detail-title"><div class="col-lg-6"><div class="detail-image"><img src="<?= e(base_url('public/images/' . $service['image'])) ?>" alt="<?= e($service['alt']) ?>" width="900" height="900"><span class="detail-image-label"><?= icon('heart') ?> <?= e($service['tag']) ?></span></div></div><div class="col-lg-6 detail-copy"><span class="eyebrow"><?= e($service['category']) ?></span><h1 id="detail-title"><?= e($service['name']) ?></h1><p class="detail-lead"><?= e($service['summary']) ?></p><div class="detail-facts"><span><?= icon('clock') ?> <?= e($service['duration']) ?> minutes</span><span><?= icon('location') ?> In-clinic consultation</span></div><div class="price-panel"><div><span class="price-label">CONSULTATION FEE</span><strong><?= money((int) $service['price']) ?></strong></div><span class="price-panel-note">Clear pricing.<br>No surprises.</span></div><p class="fee-note">Consultation only. Additional tests, medicines, or procedures are quoted separately.</p><a class="btn btn-primary btn-lg detail-book" href="<?= e(base_url('pages/appointment.php?service=' . $service['id'])) ?>">Request an appointment <?= icon('arrow-up') ?></a><button type="button" class="detail-save text-link" data-save-service="<?= e($service['id']) ?>" data-service-name="<?= e($service['name']) ?>" aria-pressed="false" aria-label="Save this service: <?= e($service['name']) ?>"><?= icon('heart') ?> <span data-save-label>Save this service</span></button><p class="demo-disclaimer">Illustrative service for a student project. Requests do not book a real medical appointment.</p></div></section>
+    <section class="row g-5 detail-information"><div class="col-lg-7"><span class="eyebrow">YOUR VISIT, EXPLAINED</span><h2>A little more about your care.</h2><p><?= e($service['description']) ?></p><h3>What’s included</h3><ul class="included-list"><?php foreach (json_decode($service['includes_json'], true) as $included): ?><li><?= icon('check') ?> <?= e($included) ?></li><?php endforeach; ?></ul></div><aside class="col-lg-5"><div class="prepare-panel"><span class="prepare-icon"><?= icon('calendar') ?></span><h2>Before your visit</h2><p><?= e($service['prepare']) ?></p><div class="prepare-hours"><strong>Plan a convenient visit</strong><span>Monday – Saturday · 09:00 – 17:00</span><span>Ho Chi Minh City time (GMT+7)</span></div></div></aside></section>
+    <section class="related-section" aria-labelledby="related-heading"><div class="section-heading"><div><span class="eyebrow">EXPLORE A LITTLE MORE</span><h2 id="related-heading">Other ways we care.</h2></div><a class="text-link" href="<?= e(base_url('public/index.php#services')) ?>">All services <?= icon('arrow') ?></a></div><div class="row g-4"><?php $related = array_slice(array_filter(services(), static fn($item) => $item['id'] !== $service['id']), 0, 3); foreach ($related as $service) require __DIR__ . '/../components/service_card.php'; ?></div></section>
+    </div>
+<?php endif; ?>
+</main>
+<?php require_once __DIR__ . '/../components/footer.php'; ?>
